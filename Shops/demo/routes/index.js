@@ -18,6 +18,7 @@ router.get('/', function (req, res, next) {
       head: shopConfig.head,
       header: shopConfig.header,
       footer:shopConfig.footer,
+      scripts: shopConfig.scripts
     });
 });
 
