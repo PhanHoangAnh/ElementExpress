@@ -6,7 +6,7 @@ var app = express();
 // Main router for each shop
 var currentPath = process.cwd();
 router.use(function (req, res, next) {
-    console.log("shopName: ", req.shopname);
+    
     if (!req.shopname) {
         mainPoin(req, res, next);
     } else {
