@@ -30,15 +30,15 @@ function decryptRequest(req, res, next) {
     try {
         var DecryptionResult = cryptico.decrypt(encrypt_Request, RSAKey);
         //console.log("DecryptionResult: at /media/chipl/Storage/NodeJSRepository/Neogent/utils/CryptoUtils.js: line 40", DecryptionResult);
-        var DecryptRSA = JSON.parse(DecryptionResult.plaintext);
+        var DecryptRSA = JSON.parse(decodeURI(DecryptionResult.plaintext));
         var aes_key = DecryptRSA.key;
         delete DecryptRSA.key;
         var aes_userName = DecryptRSA.userName;
         delete DecryptRSA.userName;
         var aes_password = DecryptRSA.password;
         delete DecryptRSA.password;
-        var userName = cryptico.decryptAESCBC(aes_userName, aes_key);
-        var password = cryptico.decryptAESCBC(aes_password, aes_key);
+        var userName = decodeURI(cryptico.decryptAESCBC(aes_userName, aes_key));
+        var password = decodeURI(cryptico.decryptAESCBC(aes_password, aes_key));
         req.body.uid = userName;
         req.body.token = password;
         req.body.key = aes_key;
