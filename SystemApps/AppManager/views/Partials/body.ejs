@@ -1,0 +1,59 @@
+<mainBody>
+    <!-- Heading page -->
+    <section class="heading-page">
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <h1>
+                    <%=title%>
+                </h1>
+            </div>
+        </div>
+    </section>
+    <!-- /Heading page -->
+    <template component-role="AppTemp">
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="flat-item">
+                <a app-role="link">
+                    <div class="inner-item">
+                        <img app-role="AppIcon">
+                    </div>
+                    <p class="caption-text" app-role="Caption">Admin</p>
+                </a>
+            </div>
+        </div>
+    </template>
+    <!-- Metro style -->
+    <div class="container-fluid dashboard-management" id="start-offset">
+        <!--center-->
+        <div component-role="AppManagerBoard">
+        </div>
+        <!--/center-->
+    </div>
+</mainBody>
+<script type="text/javascript">
+    var data = <%- JSON.stringify(data) %>;
+    LoadApp();
+
+    function LoadApp() {
+        var mainBody = document.querySelector('mainBody');
+        var root = mainBody.querySelector('[component-role="AppManagerBoard"]');
+        var AppTemplate = mainBody.querySelector('[component-role="AppTemp"]').content;
+        for (var i in data) {
+            // if (data[i].url == 'appManager') {
+            // 	continue;
+            // }
+            var link = AppTemplate.querySelector('[app-role = "link"]')
+            var icon = AppTemplate.querySelector('[app-role = "AppIcon"]');
+            var caption = AppTemplate.querySelector('[app-role = "Caption"]');
+            link.setAttribute('href', data[i].url);
+            icon.setAttribute('src', window.location.href + data[i].logo);
+            caption.innerHTML = data[i].name;
+            root.appendChild(document.importNode(AppTemplate, true));
+        }
+    }
+
+    /** Huyen Anh added code here **/
+    function toggleSearch() {
+        document.getElementById('searchBox').classList.toggle('search-active');
+    }
+</script>

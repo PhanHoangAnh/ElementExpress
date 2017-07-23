@@ -10,6 +10,9 @@ global['jwtsecret'] = 'convitbuocloai1';
 //public function
 global['getToken'] = SSOServices.getToken;
 global['checkToken'] = SSOServices.checkToken;
+global['checkAuth'] = function (req, res, next) {
+    next()
+};
 
 // Mapping independent Applications
 global["appManager"] = require("./SystemApps/AppManager/routes/index");

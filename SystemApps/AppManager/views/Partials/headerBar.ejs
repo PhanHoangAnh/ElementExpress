@@ -1,0 +1,37 @@
+<!--header in SystemApps/AppManager/view/Partial/header.ejs  -->
+<headerBar>
+    <template id="FbPad">
+        <div class="user-account">
+            <div class="fb-avatar">
+                <span class="username-text" app-role="fbName"></span>
+                <span class="avatar-img"><img app-role = "fbAvatar">
+                        </span>
+            </div>
+        </div>
+    </template>
+    <!-- User -->
+    <div class="login-block">
+        <div app-role='removeAfterLogin'>
+            <button class="btn btn-facebook" component-role="bntFbLogin">
+                        <i class="fa fa-facebook"></i><span>Login with Facebook</span>
+            </button>
+        </div>
+    </div>
+    <!-- /User -->
+    <!-- Search box -->
+    <div id="searchBox" class="search-box">
+        <div class="col-xs-12 col-sm-9 col-md-9">
+            <span class="search-mode lnr" onclick="toggleSearch()"></span>
+            <form role="search" class="search-inner">
+                <i class="lnr lnr-magnifier"></i>
+                <input type="text" name="q" placeholder="Search" class="form-control" style="border-color: #8f29b3;">
+            </form>
+        </div>
+    </div>
+    <!-- /Search box -->
+</headerBar>
+<!--End of header in SystemApps/AppManager/view/Partial/header.ejs  -->
+<script type="text/javascript">
+    RSAPublicKey = <%-JSON.stringify(RSApublicKey)%>;
+</script>
+<script src="js/headerBar/headerBar.js"></script>

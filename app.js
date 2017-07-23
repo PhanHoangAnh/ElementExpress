@@ -4,11 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var compress = require('compression');
 var routes = require('./globalComponents/routes/index');
-require("./autoload");
 
+require("./autoload");
 var app = express();
+
+app.use(logger('dev'));
+app.use(compress());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(cookieParser());
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
