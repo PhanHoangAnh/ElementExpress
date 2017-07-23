@@ -1,16 +1,17 @@
 var setting = [
 {
     name: "Applications Manager",
-    url: "appManager",
+    url: "",
     path: "../AppManager/",
     logo: "appManager/imgs/logo.png"
 }, 
-// {
-//     name: "Create Option Sets",
-//     url: "OptionSets",
-//     path: "../CreateOptionSets/",
-//     logo: "OptionSets/img/LogoIcon.png"
-// }, {
+{
+    name: "Create Option Sets",
+    url: "OptionSets",
+    path: "../../CreateOptionSets/routes",
+    logo: "OptionSets/imgs/LogoIcon.png"
+}, 
+//{
 //     name: "Create Product",
 //     url: "createProduct",
 //     path: "../CreateProduct/",
@@ -35,12 +36,14 @@ var setting = [
 //     url: "arttemp",
 //     path: "../ArtTemplate/",
 //     logo: "template/imgs/LogoSamples/1.png"
-// }, {
-//     name: "Template",
-//     url: "template",
-//     path: "../AppTemplate/",
-//     logo: "template/imgs/LogoSamples/2.png"
-// }, {
+// }, 
+{
+    name: "Template",
+    url: "template",
+    path: "../../AppTemplate/routes/",
+    logo: "template/imgs/LogoIcon.png"
+},
+// {
 //     name: "Template",
 //     url: "arttemp",
 //     path: "../ArtTemplate/",

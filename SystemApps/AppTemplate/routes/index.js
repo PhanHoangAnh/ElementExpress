@@ -20,9 +20,9 @@ function requireUncached(module) {
     return require(module)
 };
 /* GET home page. */
-router.get('/', function (req, res, next) {  //    
+router.get('/', function (req, res, next) {    
   res.render('index', {
-      title: 'Application Manager',
+      title: 'Template Application',
       head: AppConfig.head,
       header: AppConfig.header,
       body: AppConfig.mainBody,
@@ -32,15 +32,6 @@ router.get('/', function (req, res, next) {  //
       data: setting,
     });
 });
-
-for (var i in setting) {
-    // var path = "../../CreateOptionSets/routes"
-    if (setting[i].url == '') {
-        router.use(path.join('/', setting[i].path), app);
-    } else {
-        router.use('/' + setting[i].url, require(path.join(setting[i].path, "index")));
-    }
-}
 
 app.use(router);
 module.exports = app;

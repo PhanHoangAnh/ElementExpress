@@ -3,12 +3,12 @@ var fbId;
 var fbToken;
 var conBnt;
 var RSAPublicKey;
-$(document).ready(function () {    
-    var headerBarElement = document.querySelector("headerBar");
-    
+$(document).ready(function () {
+    headerBarElement = document.querySelector("headerBar");
+
     // var bntFbLogin = document.getElementById('bntFbLogin');
     var bntFbLogin = headerBarElement.querySelector('[component-role="bntFbLogin"]')
-    
+
     var headerBarHandle = {};
     headerBarHandle.getStatus = function (objFb) {
         // console.log(objFb);
@@ -41,7 +41,7 @@ $(document).ready(function () {
 
     function afterGetToken(token) {
         systoken = token;
-        // console.log("from afterGetToken: ", token);
+        console.log("from afterGetToken: ", token);
     }
 
     function afterCheckToken(result) {
@@ -116,3 +116,7 @@ $(document).ready(function () {
     }
     var fb = new fbHandler(headerBarHandle.getStatus, bntFbLogin);
 });
+/** Huyen Anh added code here **/
+function toggleSearch() {
+    headerBarElement.querySelector('[component-role="searchBox"]').classList.toggle('search-active');
+}
