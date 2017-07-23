@@ -9,13 +9,12 @@ app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '../public')));
 
-
 /* GET home page. */
 router.get('/', function (req, res, next) {  
   var head = shopConfig.head;
   console.log(head);
   res.render('index', {
-      title: 'From Global Components',
+      title: 'From Application Manager',
       head: shopConfig.head,
       header: shopConfig.header,
       footer:shopConfig.footer,

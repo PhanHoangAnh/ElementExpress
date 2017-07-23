@@ -23,7 +23,12 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'globalComponents/public')));
+app.use(express.static(path.join(__dirname, '/globalComponents/public')));
+
+app.use("/:shopname/app", function (req, res, next) {
+  req.shopname = req.params.shopname;
+  next();
+}, appManager);
 
 app.use('/:shopname', function (req, res, next) {
   req.shopname = req.params.shopname;
