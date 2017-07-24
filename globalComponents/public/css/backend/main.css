@@ -1451,6 +1451,7 @@ footer .footer-inner:after {
 /* line 19, ../scss/main.scss */
 .heading-page {
   padding: 10px 0;
+  padding-top: 140px;
 }
 /* line 21, ../scss/main.scss */
 .heading-page, .heading-page h1, .heading-page .h1 {
