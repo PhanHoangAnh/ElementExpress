@@ -22,14 +22,16 @@ function requireUncached(module) {
 /* GET home page. */
 router.get('/', function (req, res, next) {    
   res.render('index', {
-      title: 'Template Application',
+      title: 'Create OptionSets',
       head: AppConfig.head,
       header: AppConfig.header,
       body: AppConfig.mainBody,
+      background: AppConfig.background,
       footer:AppConfig.footer,
       scripts: AppConfig.scripts,
       RSApublicKey: keyPair.public,
       data: setting,
+      navbar: AppConfig.navbar,
     });
 });
 

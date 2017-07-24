@@ -31,6 +31,7 @@ router.get('/', function (req, res, next) {
       scripts: AppConfig.scripts,
       RSApublicKey: keyPair.public,
       data: setting,
+      navbar: AppConfig.navbar,
     });
 });
 

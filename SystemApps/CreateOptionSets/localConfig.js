@@ -8,7 +8,8 @@ var AppConf = {
     mainBody: localPath + "body",   
     footer:globalPath+"footer",
     scripts: globalPath +"scripts",
-    background: "../../GlobalElements/views/BlueBackground/bluebackground.ejs"
+    background: "../../GlobalElements/views/BlueBackground/bluebackground.ejs",
+    navbar: "../../GlobalElements/views/NavBar/navbar.ejs"
 }
 
 module.exports = AppConf;

@@ -5,12 +5,12 @@
 }
 
 /* line 7, ../scss/navbar.scss */
-/* #topNav {
+#topNav {
   z-index: -1;
-} */
+}
 
 /* line 8, ../scss/navbar.scss */
-[component-role="nav"] {
+#nav {
   position: fixed;
   width: 100%;
   top: -50px;
@@ -20,7 +20,7 @@
   transition: top 1.2s ease-in-out;
 }
 /* line 13, ../scss/navbar.scss */
-[component-role="nav"].affix-top {
+#nav.affix-top {
   position: absolute;
   top: 0;
   left: 0;
@@ -36,16 +36,16 @@
   margin-bottom: 93px;
 }
 /* line 28, ../scss/navbar.scss */
-[component-role="nav"] > .container {
+#nav > .container {
   width: auto;
 }
 @media only screen and (max-width: 767px) {
   /* line 28, ../scss/navbar.scss */
-  [component-role="nav"] > .container {
+  #nav > .container {
     text-align: center;
   }
   /* line 32, ../scss/navbar.scss */
-  [component-role="nav"] > .container .hambugger {
+  #nav > .container .hambugger {
     display: inline-block;
     float: none;
     margin-left: 37.5px;
@@ -53,20 +53,20 @@
 }
 @media only screen and (min-width: 566px) and (max-width: 767px) {
   /* line 28, ../scss/navbar.scss */
-  [component-role="nav"] > .container {
+  #nav > .container {
     text-align: left;
   }
   /* line 39, ../scss/navbar.scss */
-  [component-role="nav"] > .container .hambugger {
+  #nav > .container .hambugger {
     float: right;
   }
 }
 /* line 42, ../scss/navbar.scss */
-[component-role="nav"] li {
+#nav li {
   background-color: rgba(0, 0, 0, 0.85);
 }
 /* line 45, ../scss/navbar.scss */
-[component-role="nav"] li > a:hover {
+#nav li > a:hover {
   -webkit-transition: all 1s ease-in-out;
   -moz-transition: all 1s ease-in-out;
   -o-transition: all 1s ease-in-out;
@@ -74,13 +74,13 @@
   background-color: #ff3333;
 }
 /* line 50, ../scss/navbar.scss */
-[component-role="nav"] li:first-child, [component-role="nav"] li:last-child {
+#nav li:first-child, #nav li:last-child {
   -webkit-border-radius: 8px 0 0 8px;
   -moz-border-radius: 8px 0 0 8px;
   border-radius: 8px 0 0 8px;
 }
 /* line 54, ../scss/navbar.scss */
-[component-role="nav"].affix {
+#nav.affix {
   position: fixed;
   top: 0;
   z-index: 10;
@@ -92,7 +92,7 @@
   transition: all 1.2s ease-in-out;
 }
 /* line 62, ../scss/navbar.scss */
-[component-role="nav"] .btn-facebook {
+#nav .btn-facebook {
   float: right;
   margin: 10px 0 0 10px;
 }
@@ -320,26 +320,31 @@
   top: 6px;
 }
 
+/* line 221, ../scss/navbar.scss */
+#iconHolder {
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 768px) {
   /* line 225, ../scss/navbar.scss */
-  [component-role="nav"].affix-top li {
+  #nav.affix-top li {
     margin-top: 20px;
     background-color: transparent;
   }
 
   /* line 229, ../scss/navbar.scss */
-  [component-role="nav"].affix-top li > a:hover {
+  #nav.affix-top li > a:hover {
     color: #FFF;
     background-color: rgba(0, 0, 0, 0.2);
   }
 
   /* line 233, ../scss/navbar.scss */
-  [component-role="nav"] li {
+  #nav li {
     background-color: rgba(255, 255, 255, 0);
   }
 
   /* line 236, ../scss/navbar.scss */
-  [component-role="nav"].affix .site-name {
+  #nav.affix .site-name {
     font-size: 24px;
   }
 
@@ -396,13 +401,13 @@
 }
 @media only screen and (max-width: 565px) {
   /* line 278, ../scss/navbar.scss */
-  [component-role="nav"].affix-top {
+  #nav.affix-top {
     width: 100%;
     right: 0;
     margin-left: 0;
   }
   /* line 282, ../scss/navbar.scss */
-  [component-role="nav"] .btn-facebook {
+  #nav .btn-facebook {
     font-size: 11px;
     margin: 12px 0 0;
   }

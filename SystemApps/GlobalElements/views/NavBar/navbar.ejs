@@ -1,0 +1,203 @@
+<link rel="stylesheet" type="text/css" href="/css/backend/navbar.css">
+<navbar>
+    <template component-role="AppTemp">
+        <a class='mini-broad' app-role="link">
+            <img app-role="AppIcon">
+        </a>
+    </template>
+    <template component-role="FbPad">
+        <div class="user-account">
+            <div class="fb-avatar">
+                <span class="username-text" app-role="fbName"></span>
+                <span class="avatar-img"><img app-role = "fbAvatar">
+                        </span>
+            </div>
+        </div>
+    </template>
+    <div>
+        <div component-role="nav" id="nav" class="navbar navbar-inverse navbar-static-top navbar" role="navigation">
+            <div class="container">
+                <div class="row">
+                    <div class="logo-img">
+                        <img src="imgs/CatLogo.png" class="logo">
+                    </div>
+                    <div class='site-name hidden-xs'>
+                        AbcJSC
+                    </div>
+                    <div>
+                        <div app-role='removeAfterLogin'>
+                            <button class="btn btn-facebook" component-role="bntFbLogin">
+                                <i class="fa fa-facebook"></i><span> Login with Facebook</span>
+                            </button>
+                        </div>
+                    </div>
+                    <span class="hambugger" onclick="toggleMenu()">
+                            <span class="menu-bar"></span>
+                    </span>
+                    <div class="menu-board">
+                        <div component-role="AppManagerBoard" class="mini-broad-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</navbar>
+<script>
+    var systoken;
+    var fbId;
+    var fbToken;
+    var RSAPublicKey;
+    var data = <%- JSON.stringify(data) %>;
+    var navbar = document.querySelector('navbar');
+    var navbarHandle = {}
+    // navbarHandle.prototype.
+    navbarHandle.init = function (height) {
+        var innerNav = navbar.querySelector('[component-role="nav"]')
+        $(innerNav).affix({
+            offset: {
+                top: function () {
+                    // Do other stuff here-- chipl							
+                    // return $('#start-offset').offset().top / 2;
+                    return height;
+                }
+            }
+        });
+    }
+    navbarHandle.LoadApp = function () {
+        var root = navbar.querySelector('[component-role="AppManagerBoard"]');
+        var AppTemplate = navbar.querySelector('[component-role="AppTemp"]').content;
+        var pathArray = window.location.pathname.split('/');
+        remove = pathArray.splice(pathArray.length - 2, 2);
+        var newPathname = "";
+        for (i = 0; i < pathArray.length; i++) {
+            newPathname += pathArray[i];
+            newPathname += "/";
+        }
+        for (var i in data) {
+            var link = AppTemplate.querySelector('[app-role = "link"]')
+            var icon = AppTemplate.querySelector('[app-role = "AppIcon"]');
+            var caption = AppTemplate.querySelector('[app-role = "Caption"]');
+            link.setAttribute('href', window.location.protocol + '//' + window.location.host + newPathname +
+                data[i].url);
+            icon.setAttribute('src', window.location.protocol + '//' + window.location.host + newPathname +
+                data[i].logo);
+            // caption.innerHTML = data[i].name;
+            root.appendChild(document.importNode(AppTemplate, true));
+            if (i == data.length) {
+                var offsetWidth = root.offsetWidth;
+                root.style.right = "-" + offsetWidth + "px";
+            }
+        }
+    }
+    navbarHandle.getStatus = function (objFb) {
+        if (objFb.loginStatus == "connected") {
+            removedElement = navbar.querySelector("[app-role = 'removeAfterLogin']");
+            var fbPad = navbar.querySelector('[component-role="FbPad"]').content;
+            var fbAvatar = fbPad.querySelector('[app-role = "fbAvatar"]');
+            var fbName = fbPad.querySelector('[app-role = "fbName"]');
+            fbAvatar.setAttribute("src", objFb.fbAvatar);
+            fbName.innerHTML = objFb.fbName;
+            fbId = objFb.fbId;
+            fbToken = objFb.fbToken;
+            if (!systoken) {
+                systoken = localStorage.getItem("app_token");
+                checkToken(objFb.fbId, systoken, RSAPublicKey, afterCheckToken);
+            } else {
+                getToken(fbId, fbToken, RSAPublicKey, afterGetToken);
+            }
+
+            var parent = removedElement.parentNode;
+            parent.removeChild(removedElement);
+            parent.appendChild(document.importNode(fbPad, true));
+        }
+    }
+
+    $(document).ready(function () {
+        navbarHandle.init(250);
+        // init(250);
+        navbarHandle.LoadApp();
+    });
+
+    function toggleMenu() {
+        document.getElementById('nav').classList.toggle('menu-active');
+    }
+
+    function afterGetToken(token) {
+        systoken = token;
+        console.log("from afterGetToken: ", token);
+    }
+
+    function afterCheckToken(result) {
+        if (result.errNum != 0) {
+            getToken(fbId, fbToken, RSAPublicKey, afterGetToken);
+            return;
+        }
+    }
+
+
+    function getToken(uid, fbToken, RSAPublicKey, fn_cb) {
+        var _data = {
+            userName: uid,
+            password: fbToken
+        };
+        aes_key = cryptoUtil.generateAESKey();
+        var json_data = {
+            data: cryptoUtil.EncryptJSON(_data, RSAPublicKey, aes_key)
+        };
+        // Make post request to getToken Endpoint
+        var currentUrl = '../../getToken';
+        $.ajax({
+            // url: './userToken',
+            url: currentUrl,
+            method: 'POST',
+            data: json_data,
+            // data: compObj,
+            complete: function (data, status, jqXHR) {
+                if (!data.responseJSON.errNum) {
+                    var encrypted_app_token = data.responseJSON.encrypted_app_token;
+                    var _app_token = cryptoUtil.aesDecryptor(encrypted_app_token, aes_key);
+                    app_token = JSON.parse(_app_token).app_token;
+                    localStorage.setItem("app_token", app_token);
+                    if (fn_cb) {
+                        fn_cb(app_token);
+                    }
+                }
+            }
+        });
+    }
+
+    function checkToken(uid, token, RSAPublicKey, fn_cb) {
+        var _data = {
+            userName: uid,
+            password: token
+        };
+        aes_key = cryptoUtil.generateAESKey();
+        var json_data = {
+            data: cryptoUtil.EncryptJSON(_data, RSAPublicKey, aes_key)
+        };
+        var currentUrl = '../../checkToken';
+        $.ajax({
+            // url: './userToken',
+            url: currentUrl,
+            cache: false,
+            method: 'POST',
+            headers: {
+                "cache-control": "no-cache"
+            },
+            data: json_data,
+            // contentType:'application/json',
+            complete: function (data, status, jqXHR) {
+                // if (data.status == 401) {
+                //     window.location = "/";
+                // }
+                if (fn_cb) {
+                    fn_cb(data.responseJSON);
+                }
+
+            }
+        });
+    }
+    var bntFbLogin = navbar.querySelector('[component-role="bntFbLogin"]');
+    var fb = new fbHandler(navbarHandle.getStatus, bntFbLogin);
+</script>
