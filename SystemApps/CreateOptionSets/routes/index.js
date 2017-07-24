@@ -26,6 +26,7 @@ router.get('/', function (req, res, next) {
       head: AppConfig.head,
       header: AppConfig.header,
       body: AppConfig.mainBody,
+      background: AppConfig.background,
       footer:AppConfig.footer,
       scripts: AppConfig.scripts,
       RSApublicKey: keyPair.public,
