@@ -1318,7 +1318,7 @@ input[type="search"] {
 /* line 194, ../scss/_common.scss */
 .navbar.affix .user-account {
   margin-top: 4px;
-  width: 120px;
+   /* width: 120px;  */
 }
 /* line 196, ../scss/_common.scss */
 .navbar.affix .user-account .avatar-img {
@@ -1758,7 +1758,8 @@ footer .footer-inner:after {
 @media only screen and (max-width: 767px) {
   /* line 198, ../scss/main.scss */
   .user-account {
-    margin-top: -5px;
+    /* margin-top: -5px; */
+    margin-top: 7px;
   }
 }
 
@@ -1825,5 +1826,13 @@ footer .footer-inner:after {
   .col-md-12 .col-md-2:nth-of-type(7n+1),
   .col-lg-12 .col-md-2:nth-of-type(7n+1) {
     clear: left;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .user-account .avatar-img {
+    margin-top: 2px;
+  }
+  .navbar.affix .user-account .avatar-img {
+    margin-top: 1px;
   }
 }
