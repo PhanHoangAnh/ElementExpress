@@ -69,3 +69,48 @@ img {
     border: none;
     vertical-align: middle;
 }
+.attribute-sets .tab-content {
+    padding-top: 20px;
+}
+
+.attribute-sets .row.control {
+    position: relative;
+    cursor: pointer;
+    zoom: 1;
+}
+
+.attribute-sets .control {
+    padding: 10px;
+}
+
+.attribute-sets .c-left {
+    float: left;
+    clear: left;
+}
+
+.attribute-sets #div1, .attribute-sets #div2 {
+    min-height: 50px;
+    padding: 30px 20px 50px;
+}
+
+.attribute-sets .popover {
+    min-width: 400px;
+    border-radius: 2px;
+}
+
+.attribute-sets .popover .popover-title {
+    border-radius: 1px 1px 0 0;
+}
+
+.attribute-sets .popover-title {
+    text-transform: capitalize;
+}
+
+.attribute-sets main_panel label, .attribute-sets main_panel label + input[type="checkbox"], .attribute-sets main_panel label + input[type="radio"] {
+    width: auto;
+}
+
+.attribute-sets main_panel label {
+    color: inherit;
+    padding-left: 0;
+}
