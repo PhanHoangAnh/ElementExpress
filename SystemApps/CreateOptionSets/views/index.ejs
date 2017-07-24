@@ -3,6 +3,7 @@
 
 <head>
 	<%-include(head) %>
+	<link rel="stylesheet" href="css/optionSets.css">
 </head>
 
 <body>
@@ -16,28 +17,77 @@
     </section>
     <hr>
 	<div class="container-fluid attribute-sets" id="start-offset" style="min-height: 100%">
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
-			<h1>Some text to enable scrolling</h1>
+		        <!--Left Sidebar-->
+        <div class="col-md-6">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Create Option Set by Drag & Drop </legend>
+                <div class="row">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="SetsIcon">
+                        <img src='imgs/logo.png' id="iconHolder" data-toggle="modal" data-target="#m_icon">
+                    </div>
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="SetsName">
+                        <legend data-controltype="label">Set's Name</legend>
+                    </div>
+                </div>
+                <div id="div2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+            </fieldset>
+        </div>
+        <!--/Left Sidebar-->
+        <!-- Right Sidebar -->
+        <div class="col-md-6">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Input Types</legend>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active">
+                        <a href="#standardElement" role="tab" data-toggle="tab">
+                            <i class="fa fa-circle"></i> Standard Elements
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#timeElements" role="tab" data-toggle="tab" onclick="saveElement()">
+                            <i class="fa fa-circle-o"></i> Time Elements
+                        </a>
+                    </li>
+                    <li>
+                        <!-- <a href="#otherElements" role="tab" data-toggle="tab" onclick="saveElement()">
+                            <i class="fa fa-circle-thin"></i> Other Elements
+                        </a> -->
+                        <a href="#otherElements" role="tab" data-toggle="tab">
+                            <i class="fa fa-circle-thin"></i> Other Elements
+                        </a>
+                    </li>
+                    <!--                         <li>
+                    <a href="#jsonoutput" role="tab" data-toggle="tab" onclick="saveElement()">
+                        <i class="fa fa-code"></i> JSON output
+                    </a>
+                </li> -->
+                    <li>
+                        <a href="#LoadOptionSets" role="tab" data-toggle="tab" onclick="requestOptionSets()">
+                            <i class="fa fa-bars"></i> Manage OptionSets
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="standardElement" class="connectedSortable tab-pane fade active in">
+                        <!-- Controls Attribute start here -->
+                    </div>
+                    <div id="timeElements" class="connectedSortable tab-pane fade">
+                        <!-- Controls Attribute start here -->
+                    </div>
+                    <div id="otherElements" class="connectedSortable tab-pane fade">
+                        <!-- Controls Attribute start here -->
+                    </div>
+                    <!--                         <div id="jsonoutput" class=" tab-pane fade " style="margin-top:25px">
+                    Controls Attribute start here
+                <pre id="printJSON" class="container-fluid">JSON Output</pre>
+            </div> -->
+                    <div id="LoadOptionSets" class="connectedSortable tab-pane fade">
+                        <!-- Controls Attribute start here -->
+                    </div>
+                </div>
+            </fieldset>
+        </div>
 	</div>
 
 		<%-include(scripts) %>
