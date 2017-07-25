@@ -1,15 +1,8 @@
 <mainBody>
-    <!-- Heading page -->
-    <section class="heading-page">
-        <div class="container-fluid">
-            <div class="col-md-12">
-                <h1>
-                    <%=title%>
-                </h1>
-            </div>
-        </div>
-    </section>
-    <!-- /Heading page -->
+
+    <h1 style = "color: #FFF;">
+        <%=title%>
+    </h1>
     <template component-role="AppTemp">
         <div class="col-xs-6 col-sm-3 col-md-2">
             <div class="flat-item">
@@ -50,6 +43,6 @@
             caption.innerHTML = data[i].name;
             root.appendChild(document.importNode(AppTemplate, true));
         }
-        
-    }    
+
+    }
 </script>
