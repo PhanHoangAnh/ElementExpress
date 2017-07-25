@@ -336,23 +336,24 @@ function createSingleControlGroup(template) {
 function createAttributePanel(nodeCopy, title) {
 
     var controlType = nodeCopy.controlType;
-    var fileds = nodeCopy.attribute;
+    var fields = nodeCopy.attribute;
     var main_panel = document.createElement('main_panel');
     main_panel.classList.add("col-md-12");
     main_panel.classList.add("col-lg-12");
     main_panel.classList.add("clearfix");
-    for (var item in fileds) {
+    for (var item in fields) {
+        console.log(item, fields[item]);
         var label = document.createElement("LABEL");
         label.classList.add("col-lg-12");
         label.classList.add("col-md-12");
         main_panel.appendChild(label);
-        if (item != "options" && item != "min" && item != "max") {
-            label.innerHTML = fileds[item]["label"];
+        if (item != "options" && item != "min" && item != "max" && item != "ImageOptions") {
+            label.innerHTML = fields[item]["label"];
             var input = document.createElement("input");
             input.classList.add("col-md-12");
             input.classList.add("col-lg-12");
-            input.type = fileds[item]["Input Type"];
-            input.placeholder = fileds[item]["value"];
+            input.type = fields[item]["Input Type"];
+            input.placeholder = fields[item]["value"];
 
             input.setAttribute("data-controlType", item);
             input.addEventListener("change", changeControlAttribute, false);
@@ -373,7 +374,7 @@ function createAttributePanel(nodeCopy, title) {
                 input.classList.remove("col-md-12");
                 input.classList.add("col-md-6");
                 input.classList.add("col-lg-6");
-                input.type = fileds[item]["Input Type"];
+                input.type = fields[item]["Input Type"];
                 input.addEventListener("change", changeControlAttribute, false);
                 row.appendChild(label);
                 row.appendChild(input);
@@ -390,8 +391,8 @@ function createAttributePanel(nodeCopy, title) {
             input.classList.add("col-lg-12");
             label.innerHTML = "Options";
             var opt_string = "";
-            for (var opt in fileds["options"]) {
-                opt_string = opt_string + fileds["options"][opt] + "\n";
+            for (var opt in fields["options"]) {
+                opt_string = opt_string + fields["options"][opt] + "\n";
             }
             input.value = opt_string;
             input.setAttribute("data-controlType", item)
@@ -425,7 +426,7 @@ function createAttributePanel(nodeCopy, title) {
             input_cover.appendChild(input);
             main_panel.appendChild(input_cover);
             var dropPad = input_cover.querySelector('[app-role="droppad"]');
-            // console.log("dropPad: ", dropPad);
+            
             //http: //stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
 
             if (!nodeCopy.get(0).CUST) {
@@ -454,8 +455,6 @@ function createAttributePanel(nodeCopy, title) {
                 dropPad.lastElementChild.setAttribute('app-value', imgDataOptions[opt].value);
             }
         }
-
-
     }
     var hr = document.createElement("hr");
     hr.setAttribute("style", "width: 100%;display: block;float: left;");
@@ -638,4 +637,34 @@ function saveElement() {
     }
     compObj.components = printedList
     document.getElementById("printJSON").innerHTML = JSON.stringify(compObj, undefined, 2);
+}
+
+
+function toggleShow(elem, event) {
+    // console.log(elem);
+    if (elem) {
+        elem.classList.toggle("active");
+        var dropdown = elem.parentNode.querySelector('[app-role="dropdown"]');
+        dropdown.classList.toggle("open");
+    }
+}
+
+function hideShow(elem) {
+    if (elem) {
+        elem.classList.remove("active");
+        var dropdown = elem.parentNode.querySelector('[app-role="dropdown"]');
+        dropdown.classList.remove("open");
+    }
+}
+
+function activeShow(elem, event) {
+    if (elem) {
+        elem.classList.add("active");
+        var dropdown = elem.parentNode.querySelector('[app-role="dropdown"]');
+        dropdown.classList.add("open");
+    }
+}
+
+function itemFocuses(elem) {
+    console.log("Item focus: ", elem);
 }
