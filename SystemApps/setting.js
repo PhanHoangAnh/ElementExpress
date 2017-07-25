@@ -11,6 +11,12 @@ var setting = [
     path: "../../CreateOptionSets/routes",
     logo: "OptionSets/imgs/LogoIcon.png"
 }, 
+{
+    name: "Create AttributeSets",
+    url: "AttributeSets",
+    path: "../../AttributeSets/routes",
+    logo: "AttributeSets/imgs/logo.svg"
+},
 //{
 //     name: "Create Product",
 //     url: "createProduct",

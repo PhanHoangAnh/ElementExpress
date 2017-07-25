@@ -1,0 +1,68 @@
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow: 0px 0px 0px 0px #000;
+    box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width: auto;
+    padding: 0 10px;
+    border-bottom: none;
+}
+
+#div1 {
+    /*  float: left;
+        width: 100px;
+        height: 35px;
+        margin: 10px;
+        padding: 10px;*/
+    /*border: 1px solid #aaaaaa;*/
+    min-height: 50px;
+    padding: 30px 20px 50px;
+}
+
+[component-role="receivedPad"] {
+    min-height: 50px;
+    padding: 30px 20px 50px;
+}
+
+.container {
+    padding: 20px;
+}
+
+
+/*    
+    .form-control {
+        width: 120px;
+    }*/
+
+.popover {
+    min-width: 400px;
+}
+
+.control {
+    padding: 10px;
+}
+
+.ui-sortable-placeholder {
+    border: 1px dashed #aaa;
+    height: 45px;
+    width: 100%;
+    background: #fafafa;
+}
+
+main_panel>label {
+    margin-top: 7px;
+}
+
+.popover-title {
+    background: #00A600;
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #fff;
+}
