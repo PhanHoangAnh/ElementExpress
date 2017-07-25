@@ -2,11 +2,11 @@ var newId = 0;
 
 // Sortable function
 $(function () {
-    var creatAttributePad = document.querySelector('creatAttributePad');    
-    var sortableDiv = creatAttributePad.querySelector('[component-role = "receivedPad"]');    
+    var creatAttributePad = document.querySelector('creatAttributePad');
+    var sortableDiv = creatAttributePad.querySelector('[component-role = "receivedPad"]');
     $(sortableDiv).sortable({
         // connectWith: ".connectedSortable",
-        sort: function (e) {            
+        sort: function (e) {
             $('[data-toggle=popover]').each(function () {
                 // hide any open popovers when the anywhere else in the body is clicked                
                 $(this).popover('hide');
@@ -56,10 +56,11 @@ $(function () {
             //
             nodeCopy.controlType = nodeCopy.attr("data-controlType");
             nodeCopy.attribute = {};
-            for (var i in controlsdata) {
-                if (controlsdata[i]["Input Type"] == nodeCopy.controlType) {
-                    for (var att in controlsdata[i]["fields"]) {
-                        nodeCopy.attribute[att] = controlsdata[i]["fields"][att];
+            var controldatas = getAttDatas();
+            for (var i in controldatas) {
+                if (controldatas[i]["Input Type"] == nodeCopy.controlType) {
+                    for (var att in controldatas[i]["fields"]) {
+                        nodeCopy.attribute[att] = controldatas[i]["fields"][att];
                     }
                 }
             }
@@ -96,8 +97,9 @@ $(function () {
 // Create controls from JSON definition
 $(function CreateControlsTemplate() {
     // body...
-    for (i in controlsdata) {
-        createSingleControlGroup(controlsdata[i]);
+    var controldatas = getAttDatas();
+    for (i in controldatas) {
+        createSingleControlGroup(controldatas[i]);
     }
     setAttributeName();
 })
@@ -406,8 +408,8 @@ function createAttributePanel(nodeCopy, title) {
     closeBnt.classList.add("btn");
     closeBnt.classList.add("btn-primary");
     closeBnt.innerHTML = "Close";
-    closeBnt.addEventListener("click", function(evt) {
-        $('[data-toggle=popover]').each(function() {
+    closeBnt.addEventListener("click", function (evt) {
+        $('[data-toggle=popover]').each(function () {
             $(this).popover('hide');
         });
         // saveElement();
@@ -445,6 +447,16 @@ function createAttributePanel(nodeCopy, title) {
             htmlNodeCopy["CUST"][ctrType] = this.value;
             if (controls[elem] instanceof Node && ctrType == "placeholder" && (controls[elem].type == "text" || controls[elem].type == "number")) {
                 controls[elem].placeholder = this.value;
+            }
+            // exception for width and height fields
+            if (ctrType == "width" || ctrType == "height") {
+                var paddingTop = htmlNodeCopy["CUST"]['height'] / htmlNodeCopy["CUST"]['width'] * 100;
+                if (isNaN(paddingTop)) {
+                    htmlNodeCopy["CUST"]['width'] = 10;
+                    htmlNodeCopy["CUST"]['height'] = 10;
+                }
+                var mask = htmlNodeCopy.querySelector('[app-role="mask"]');
+                mask.style.paddingTop = paddingTop + '%';
             }
             if (controls[elem] instanceof Node && ctrType == "options" && (controls[elem].type == "select-one")) {
                 var select = controls[elem];

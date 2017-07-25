@@ -1,4 +1,5 @@
-var controlsdata = [{
+var getAttDatas = function() {
+    return [{
         "container": "standardElement",
         "label": "Text Input",
         "Input Type": "text",
@@ -25,8 +26,18 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "Describe attribute"
             },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -47,10 +58,20 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "Text Input"
             },
+            "placeholder": {
+                "label": "Placeholder",
+                "Input Type": "text",
+                "value": "placeholder"
+            },
             "describe": {
                 "label": "More info",
                 "Input Type": "text",
                 "value": "Describe attribute"
+            },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
             },
             "cols": {
                 "label": "cols",
@@ -62,6 +83,11 @@ var controlsdata = [{
             },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -92,8 +118,18 @@ var controlsdata = [{
                 "2": "value 2",
                 "3": "value 3",
             },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -130,8 +166,18 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "Describe attribute"
             },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -162,9 +208,18 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "Describe attribute"
             },
-
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -195,8 +250,60 @@ var controlsdata = [{
                 "2": "value 2",
                 "3": "value 3",
             },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
+                "Input Type": "checkbox",
+                "value": false
+            }
+        }
+    }, {
+        "container": "standardElement",
+        "label": "Image Options ",
+        "Input Type": "ImageOptions",
+        "value": "ImageOptions",
+        "fields": {
+            "id": {
+                "label": "ID / Name",
+                "Input Type": "text",
+                "value": "Image Options Name"
+            },
+            "label": {
+                "label": "Label",
+                "Input Type": "text",
+                "value": "Radio"
+            },
+            "describe": {
+                "label": "More info",
+                "Input Type": "text",
+                "value": "Describe attribute"
+            },
+            "ImageOptions": [
+                { value: 1, img: "https://raw.githubusercontent.com/PhanHoangAnh/CreateDynamicAttributeSets/master/materials/sample.jpg", optName: "something1" },
+                { value: 2, img: "https://raw.githubusercontent.com/PhanHoangAnh/CreateDynamicAttributeSets/master/materials/sample.jpg", optName: "something2" },
+                { value: 3, img: "https://raw.githubusercontent.com/PhanHoangAnh/CreateDynamicAttributeSets/master/materials/sample.jpg", optName: "something3" }
+            ],
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
+            "required": {
+                "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -223,6 +330,11 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "placeholder"
             },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "describe": {
                 "label": "More info",
                 "Input Type": "text",
@@ -232,6 +344,11 @@ var controlsdata = [{
             "max": 200,
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -257,8 +374,18 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "Describe attribute"
             },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -284,8 +411,18 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "Describe attribute"
             },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -313,8 +450,18 @@ var controlsdata = [{
             },
             "min": 1,
             "max": 200,
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -340,8 +487,18 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "Describe attribute"
             },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -367,8 +524,18 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "Describe attribute"
             },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -396,6 +563,16 @@ var controlsdata = [{
             },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -447,7 +624,7 @@ var controlsdata = [{
                 "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
-            }        
+            }
         }
     }, {
         "container": "otherElements",
@@ -473,12 +650,22 @@ var controlsdata = [{
                 "label": "Height ratio",
                 "Input Type": "number"
             },
-            "weight": {
-                "label": "Weight ratio",
+            "width": {
+                "label": "width ratio",
                 "Input Type": "number"
+            },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
             },
             "required": {
                 "label": "Required",
+                "Input Type": "checkbox",
+                "value": false
+            },
+            "invisible": {
+                "label": "invisible",
                 "Input Type": "checkbox",
                 "value": false
             }
@@ -507,17 +694,25 @@ var controlsdata = [{
                 "label": "Height ratio",
                 "Input Type": "number"
             },
-            "weight": {
-                "label": "Weight ratio",
+            "width": {
+                "label": "width ratio",
                 "Input Type": "number"
+            },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
             },
             "required": {
                 "label": "Required",
                 "Input Type": "checkbox",
                 "value": false
+            },
+            "invisible": {
+                "label": "invisible",
+                "Input Type": "checkbox",
+                "value": false
             }
         }
-    }
-
-
-]
+    }];
+}
