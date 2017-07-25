@@ -420,19 +420,34 @@ var controlsdata = [{
                 "Input Type": "text",
                 "value": "Describe attribute"
             },
+            "width": {
+                "label": "Width ratio",
+                "Input Type": "number"
+            },
             "height": {
                 "label": "Height ratio",
                 "Input Type": "number"
             },
-            "weight": {
-                "label": "Weight ratio",
-                "Input Type": "number"
+            "imageGroup": {
+                "label": "Images Group",
+                "Input Type": "text",
+                "value": "Assign Images Group"
+            },
+            "displayGroup": {
+                "label": "Assign Dipsplay Group",
+                "Input Type": "text",
+                "value": "Assign Dipsplay Group"
             },
             "required": {
                 "label": "Required",
                 "Input Type": "checkbox",
                 "value": false
-            }
+            },
+            "invisible": {
+                "label": "invisible",
+                "Input Type": "checkbox",
+                "value": false
+            }        
         }
     }, {
         "container": "otherElements",

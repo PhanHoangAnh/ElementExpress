@@ -2,19 +2,15 @@ var newId = 0;
 
 // Sortable function
 $(function () {
-    var creatAttributePad = document.querySelector('creatAttributePad');
-    // var sortableDiv = document.querySelector("#div2");
-    var sortableDiv = creatAttributePad.querySelector('[component-role = "receivedPad"]');
-    // console.log(document.querySelector("#div2") == creatAttributePad.querySelector('[component-role = "receivedPad"]'));
+    var creatAttributePad = document.querySelector('creatAttributePad');    
+    var sortableDiv = creatAttributePad.querySelector('[component-role = "receivedPad"]');    
     $(sortableDiv).sortable({
         // connectWith: ".connectedSortable",
-        sort: function (e) {
-            // console.log('X:' + e.screenX, 'Y:' + e.screenY);
+        sort: function (e) {            
             $('[data-toggle=popover]').each(function () {
                 // hide any open popovers when the anywhere else in the body is clicked                
                 $(this).popover('hide');
             });
-
         },
         placeholder: "ui-sortable-placeholder",
         receive: function (e, ui) {
@@ -176,6 +172,9 @@ function createSingleControlGroup(template) {
             break;
         case ("textarea"):
             input = document.createElement("textarea");
+            input.classList.add("col-md-12");
+            input.classList.add("col-lg-12");
+            input.classList.add("form-control");
             input.type = "textarea";
             input.setAttribute("data-controlType", "textarea");
             input_cover.appendChild(input);
@@ -187,15 +186,15 @@ function createSingleControlGroup(template) {
             input.name = template["value"];
             if (template["fields"]["options"]) {
                 for (item in template["fields"]["options"]) {
-                    input.classList.add("col-md-6");
-                    input.classList.add("col-lg-6");
+                    input.classList.add("c-left");
+                    //input.classList.add("col-lg-6");
                     input.value = item;
                     var copy_radio = input.cloneNode(true);
                     input_cover.appendChild(copy_radio);
                     var span = document.createElement("span")
                     span.innerHTML = template["fields"]["options"][item];
-                    span.classList.add("col-md-6");
-                    span.classList.add("col-lg-6");
+                    span.classList.add("col-md-11");
+                    span.classList.add("col-lg-11");
                     input_cover.appendChild(span);
                 }
                 input_cover.setAttribute("data-controlType", "options");
@@ -208,15 +207,15 @@ function createSingleControlGroup(template) {
             input.name = template["value"];
             if (template["fields"]["options"]) {
                 for (item in template["fields"]["options"]) {
-                    input.classList.add("col-md-6");
-                    input.classList.add("col-lg-6");
+                    input.classList.add("c-left");
+                    //input.classList.add("col-lg-6");
                     input.value = item;
                     var copy_radio = input.cloneNode(true);
                     input_cover.appendChild(copy_radio);
                     var span = document.createElement("span")
                     span.innerHTML = template["fields"]["options"][item];
-                    span.classList.add("col-md-6");
-                    span.classList.add("col-lg-6");
+                    span.classList.add("col-md-11");
+                    span.classList.add("col-lg-11");
                     input_cover.appendChild(span);
                 }
                 input_cover.setAttribute("data-controlType", "options");
@@ -286,15 +285,26 @@ function createSingleControlGroup(template) {
             container_div.setAttribute("data-controlType", "time");
             break;
         case ("image"):
-            input = document.createElement("img");
-            // input.setAttribute("src","./materials/sample.jpg");
-            // https://rawgit.com/PhanHoangAnh/CreateDynamicAttributeSets/master/materials/sample.jpg
-            input.setAttribute("src", "https://rawgit.com/PhanHoangAnh/CreateDynamicAttributeSets/master/materials/sample.jpg");
-            input.style.height = "auto";
-            input.classList.add("col-md-12");
-            input.classList.add("col-lg-12");
-            input.classList.add("form-control");
-            input_cover.insertBefore(input, container_div.querySelector('[data-controltype="describe"]'));
+            input = document.createElement('div');
+            input.style.backgroundImage = "url('https://rawgit.com/PhanHoangAnh/CreateDynamicAttributeSets/master/materials/sample.jpg')";
+            input.style.backgroundSize = 'cover';
+            input.style.backgroundRepeat = 'no-repeat';
+            input.style.outlineColor = 'rgba(255,255,255,.2)';
+            input.style.outlineStyle = 'solid';
+            input.style.outlineWidth = '3px';
+            var mask = document.createElement('div');
+            var height = template["fields"]['height']['value'];
+            var width = template["fields"]['width']['value'];
+            var paddingTop = height / width * 100;
+            if (isNaN(paddingTop)) {
+                mask.style = "position: relative; z-index: 5; padding-top: 56.25%;"
+            } else {
+                mask.style = "position: relative; z-index: 5;"
+                mask.style.paddingTop = paddingTop + '%';
+            };
+            mask.setAttribute("app-role", "mask");
+            input.appendChild(mask);
+            input_cover.appendChild(input);
             container_div.setAttribute("data-controlType", "image");
             break;
 
@@ -307,7 +317,7 @@ function createSingleControlGroup(template) {
     input_cover.appendChild(span);
     container_div.appendChild(input_cover);
     //Test
-    var container = template["container"];    
+    var container = template["container"];
     document.getElementById(container).appendChild(container_div);
 }
 
@@ -396,16 +406,17 @@ function createAttributePanel(nodeCopy, title) {
     closeBnt.classList.add("btn");
     closeBnt.classList.add("btn-primary");
     closeBnt.innerHTML = "Close";
-    closeBnt.addEventListener("click", function (evt) {
-        $('[data-toggle=popover]').each(function () {
+    closeBnt.addEventListener("click", function(evt) {
+        $('[data-toggle=popover]').each(function() {
             $(this).popover('hide');
         });
-        saveElement();
+        // saveElement();
     }, false);
 
     var controlHandler = document.createElement("div");
     controlHandler.style["text-align"] = "center";
-    controlHandler.style["padding-bottom"] = "15px"
+    controlHandler.style["padding-bottom"] = "15px";
+    controlHandler.style["clear"] = "both";
     controlHandler.appendChild(closeBnt);
 
     var cover = document.createElement("cover");
