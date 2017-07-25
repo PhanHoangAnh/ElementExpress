@@ -224,6 +224,15 @@ function createSingleControlGroup(template) {
                 container_div.setAttribute("data-controlType", "checkbox");
             }
             break;
+        case ("ImageOptions"):
+            // Update for configurable attributes
+            newId++;
+            var input = document.importNode(document.getElementById('extraOptionImgHandler').content, true);
+            input_cover.appendChild(input);
+            input.id = newId;
+            container_div.setAttribute("data-controlType", "ImageOptions"); //
+
+            break;
         case ("number"):
             input.setAttribute("data-controlType", "number");
             input.type = "number";
@@ -315,6 +324,7 @@ function createSingleControlGroup(template) {
     if (template["fields"]["describe"]) {
         var span = container_div.querySelector('[data-controltype="describe"]')
         span.innerHTML = template["fields"]["describe"]["value"];
+        span.classList.add("help-block");
     }
     input_cover.appendChild(span);
     container_div.appendChild(input_cover);
@@ -399,6 +409,52 @@ function createAttributePanel(nodeCopy, title) {
             input.addEventListener("change", changeControlAttribute, false);
             main_panel.appendChild(input);
         }
+        if (item == "ImageOptions") {
+            // Update for configurable attributes           
+            label.innerHTML = item;
+            var input_cover = document.createElement("div");
+            input_cover.setAttribute("app-role", "imgOptionHandler");
+            if (nodeCopy instanceof Element) {
+                nodeCopy = $(nodeCopy);
+            }
+            input_cover.referParentElem = nodeCopy.get(0);
+
+            input_cover.classList.add("col-md-12");
+            input_cover.style.padding = '0';
+            var input = document.importNode(document.getElementById('extraOptionImgHandler').content, true);
+            input_cover.appendChild(input);
+            main_panel.appendChild(input_cover);
+            var dropPad = input_cover.querySelector('[app-role="droppad"]');
+            // console.log("dropPad: ", dropPad);
+            //http: //stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
+
+            if (!nodeCopy.get(0).CUST) {
+                nodeCopy.get(0).CUST = {};
+            }
+            // var CUST = nodeCopy.get(0).CUST;
+            if (!nodeCopy.get(0).CUST['ImageOptions']) {
+                nodeCopy.get(0).CUST['ImageOptions'] = fields['ImageOptions'];
+            }
+
+            var imgDataOptions = nodeCopy.get(0).CUST['ImageOptions'];
+            for (var opt in imgDataOptions) {
+                //console.log(" Test: ", fields["ImageOptions"][opt]);
+                var item = document.getElementById('extraOptionImgItem').content;
+                var label = item.querySelector('[app-role="attName"]');
+                label.innerHTML = imgDataOptions[opt]['optName'];
+                var img = item.querySelector('[app-role = "attImg"]');
+                var imgSrc = imgDataOptions[opt].img
+                // update check valid URL later here                    
+                if (imgSrc.indexOf("http") == -1) {
+                    imgSrc = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/" + imgSrc
+                }
+                img.setAttribute('src', imgSrc);
+                var temp = document.importNode(item, true);
+                var currentNode = dropPad.appendChild(temp);
+                dropPad.lastElementChild.setAttribute('app-value', imgDataOptions[opt].value);
+            }
+        }
+
 
     }
     var hr = document.createElement("hr");

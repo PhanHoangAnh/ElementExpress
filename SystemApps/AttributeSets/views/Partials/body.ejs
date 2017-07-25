@@ -8,6 +8,31 @@
                     <span class="help-block col-md-12 col-lg-12" data-controltype="describe">Describe attribute</span></div>
             </div>
         </template>
+        <template id='extraOptionImgHandler'>
+            <div class="ctr-select-box" app-role="selectHandler" onfocus="activeShow(this, event)" onblur="hideShow(this)" tabindex="0">
+                <div app-role="selectbox" class="ctr-select-value" onclick="toggleShow(this, event)"> Select here
+                </div>
+                <div app-role="dropdown" class="ctr-select-down">
+                    <div app-role="droppad">
+                    </div>
+                    <div class="s-bottom">
+                        <a class="btn" onclick="addMoreOrEditImageOptions(this,event)" app-role="addMoreImgOption"><i class="fa fa-plus"></i> Add More</a>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template id='extraOptionImgItem'>
+            <div class="ctr-select-option" app-role="selectItem" onclick='getOptionImage(this)' onfocus="itemFocuses(this)" tabindex="0">
+                <div class="s-img"><img app-role="attImg" src="" class="img-flag"></div>
+                <div class="s-content">
+                    <label app-role="attName"></label>
+                    <div class="s-button">
+                        <a class="btn" onclick="addMoreOrEditImageOptions(this,event)" app-role="deleteImgOption"><i class="fa fa-times" ></i> Delete</a>
+                        <a class="btn" onclick="addMoreOrEditImageOptions(this,event)" app-role="editImgOption"><i class="fa fa-pencil"></i> Edit</a>
+                    </div>
+                </div>
+            </div>
+        </template>
         <div class="container-fluid">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <fieldset class="scheduler-border">
