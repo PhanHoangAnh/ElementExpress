@@ -22,7 +22,7 @@ function requireUncached(module) {
 /* GET home page. */
 router.get('/', function (req, res, next) {    
   res.render('index', {
-      title: 'Create OptionSets',
+      title: 'Create AttributeSets',
       head: AppConfig.head,
       header: AppConfig.header,
       body: AppConfig.mainBody,
