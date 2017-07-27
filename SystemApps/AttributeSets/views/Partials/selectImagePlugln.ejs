@@ -1,0 +1,302 @@
+<!--selecImage component from vendors/slectImagePlugIn/selectImagePlugIn.ejs-->
+<link rel="stylesheet" href="css/imagePreview.css">
+<selectImagePlugln class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" component-role = "Title">Chọn hình nền cho ảnh của bạn.</h4>
+            </div>
+            <div class="modal-body" style="padding:0; width: 100%; margin:0">
+                <p style="margin-left: 15px" component-role = "message">Drag the image to take an wall</p>
+                <!-- <div class="row"> -->
+                <!--<div class="row" style="padding-bottom: 15px">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <input type="number" id="attImgXRatio" app-role="attImgXRatio" name="x-ratio" placeholder="X ratio" onchange="attImgRatio_change(event,this)">
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <input type="number" id="attImgYRatio" app-role="attImgYRatio" name="y-ratio" placeholder="Y ratio" onchange="attImgRatio_change(event,this)">
+                        </div>
+                    </div>
+                </div>-->
+                <div class="col-md-12" style="padding:0">
+                    <div class="imageBox" uploadImageTempl-role="wallImg" style="background-color: #F5F5F5">
+                        <div class="thumbBox" uploadImageTempl-role="thumbWall"></div>
+                        <div class="spinner" style="display: none" uploadImageTempl-role="spinnerWall">Loading...</div>
+                        <!-- <div id='openInput' class="spinner" style="background-color: rgba(0,0,0,0) color: #333">
+                                <h3>Click here ....</h3>
+                            </div> -->
+                    </div>
+                    <div class="action" style="padding: 15px">
+                        <span class="file-input btn btn-primary btn-file">
+                            Browse&hellip;
+                            <input type="file" multiple uploadImageTempl-role="wallFile">
+                        </span>
+                        <!--input type="button" id="btnCrop" class="btn btn-primary btncrop" value="Crop"-->
+                        <input type="button" action-role="wall_btnZoomIn" class="btn btn-primary" value="+" style="float: right">
+                        <input type="button" action-role="wall_btnZoomOut" class="btn btn-primary" value="-" style="float: right">
+                    </div>
+                </div>
+                <div class="col-md-3" style=" padding: 15px">
+                    <div class="preview">
+                        <img uploadImageTempl-role="wall_preview">
+                    </div>
+                    <div class="preview-md">
+                        <img uploadImageTempl-role="wall_preview">
+                    </div>
+                    <div class="preview-sm">
+                        <img uploadImageTempl-role="wall_preview">
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="margin-top: 15px" class="btn btn-default" data-dismiss="modal">Done</button>
+            </div>
+        </div>
+    </div>
+</selectImagePlugln>
+
+    <script type="text/javascript">
+        'use strict';
+
+        /**
+         *
+         */
+
+        document.querySelectorAll('[app-action = "selectImage"]').forEach((elem) => {
+            elem.addEventListener('click', function (event, el) {
+                selectImageHandler.openImageUploadModal(this.parentNode.querySelector(
+                    '[templHandler = "imageHandler"]'));
+            })
+        })
+
+        var selectImageHandler = {}
+
+        selectImageHandler.cropbox = function (options, fn_cb) {
+            var el = options.imageBox,
+                obj = {
+                    state: {},
+                    ratio: 1,
+                    options: options,
+                    imageBox: el,
+                    thumbBox: options.thumbBox,
+                    spinner: options.spinner,
+                    image: new Image(),
+                    bgX: parseInt(window.getComputedStyle(el, null).backgroundPosition.trim().split(/\s+/)[0]),
+                    bgY: parseInt(window.getComputedStyle(el, null).backgroundPosition.trim().split(/\s+/)[1]),
+                    canvas: document.createElement("canvas"),
+                    getDataURL: function () {
+                        var width = this.thumbBox.clientWidth,
+                            height = this.thumbBox.clientHeight,
+                            canvas = obj.canvas,
+                            dim = el.style.backgroundPosition.split(' '),
+                            size = el.style.backgroundSize.split(' '),
+                            dx = parseInt(dim[0]) - el.clientWidth / 2 + width / 2,
+                            dy = parseInt(dim[1]) - el.clientHeight / 2 + height / 2,
+                            dw = parseInt(size[0]),
+                            dh = parseInt(size[1]),
+                            sh = parseInt(this.image.height),
+                            sw = parseInt(this.image.width);
+                        canvas.width = width;
+                        canvas.height = height;
+                        var context = canvas.getContext("2d");
+                        context.drawImage(this.image, 0, 0, sw, sh, dx, dy, dw, dh);
+                        var imageData = canvas.toDataURL('image/png');
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        return imageData;
+                    },
+                    getBlob: function () {
+                        var imageData = this.getDataURL();
+                        var b64 = imageData.replace('data:image/png;base64,', '');
+                        var binary = atob(b64);
+                        var array = [];
+                        for (var i = 0; i < binary.length; i++) {
+                            array.push(binary.charCodeAt(i));
+                        }
+                        return new Blob([new Uint8Array(array)], {
+                            type: 'image/png'
+                        });
+                    },
+                    zoomIn: function () {
+                        this.ratio *= 1.1;
+                        setBackground();
+                    },
+                    zoomOut: function () {
+                        this.ratio *= 0.9;
+                        setBackground();
+                    },
+                    resetOption: function (opt) {
+                        el.style.backgroundImage = "none";
+                        obj.options = opt;
+                        obj.bgX = 0;
+                        obj.bgY = 0;
+                        obj.ratio = 1;
+                        obj.image.src = options.imgSrc;
+                        // this.getDataURL();
+                    }
+                },
+                attachEvent = function (node, event, cb) {
+                    if (node.attachEvent)
+                        node.attachEvent('on' + event, cb);
+                    else if (node.addEventListener)
+                        node.addEventListener(event, cb);
+                },
+                detachEvent = function (node, event, cb) {
+                    if (node.detachEvent) {
+                        node.detachEvent('on' + event, cb);
+                    } else if (node.removeEventListener) {
+                        node.removeEventListener(event, render);
+                    }
+                },
+                stopEvent = function (e) {
+                    if (window.event) e.cancelBubble = true;
+                    else e.stopImmediatePropagation();
+                },
+                setBackground = function () {
+                    var w = parseInt(obj.image.width) * obj.ratio;
+                    var h = parseInt(obj.image.height) * obj.ratio;
+
+                    el = options.imageBox;
+                    el.style.backgroundImage = "url('" + obj.image.src + "')";
+                    el.style.backgroundSize = w + 'px ' + h + 'px';
+                    el.style.backgroundPosition = obj.bgX + 'px ' + obj.bgY + 'px';
+                    el.style.backgroundRepeat = 'no-repeat';
+                    fn_cb(obj.getDataURL());
+                },
+                imgMouseDown = function (e) {
+                    stopEvent(e);
+
+                    obj.state.dragable = true;
+                    obj.state.mouseX = e.clientX;
+                    obj.state.mouseY = e.clientY;
+                },
+                imgMouseMove = function (e) {
+                    stopEvent(e);
+
+                    if (obj.state.dragable) {
+
+                        var x = e.clientX - obj.state.mouseX;
+                        var y = e.clientY - obj.state.mouseY;
+
+                        var bg = el.style.backgroundPosition.split(' ');
+
+                        var bgX = x + parseInt(bg[0]);
+                        var bgY = y + parseInt(bg[1]);
+
+                        el.style.backgroundPosition = bgX + 'px ' + bgY + 'px';
+
+                        obj.state.mouseX = e.clientX;
+                        obj.state.mouseY = e.clientY;
+                        obj.bgX = bgX;
+                        obj.bgY = bgY;
+                        fn_cb(obj.getDataURL());
+                    }
+                },
+                imgMouseUp = function (e) {
+                    stopEvent(e);
+                    obj.state.dragable = false;
+                },
+                zoomImage = function (e) {
+                    var evt = window.event || e;
+                    var delta = evt.detail ? evt.detail * (-120) : evt.wheelDelta;
+                    delta > -120 ? obj.ratio *= 1.1 : obj.ratio *= 0.9;
+                    setBackground();
+                }
+
+            obj.spinner.style.display = 'block';
+            obj.image.onload = function () {
+                obj.spinner.style.display = 'none';
+                setBackground();
+                attachEvent(el, 'mousedown', imgMouseDown);
+                attachEvent(el, 'mousemove', imgMouseMove);
+                attachEvent(el, 'mouseup', imgMouseUp);
+                var mousewheel = (/Firefox/i.test(navigator.userAgent)) ? 'DOMMouseScroll' : 'mousewheel';
+                attachEvent(el, mousewheel, zoomImage);
+            };
+            obj.image.src = options.imgSrc;
+            attachEvent(el, 'DOMNodeRemoved', function () {
+                detachEvent(el, 'DOMNodeRemoved', imgMouseUp)
+            });
+
+            fn_cb(obj.getDataURL());
+
+
+            return obj;
+        };
+
+        selectImageHandler.selectImage = document.querySelector("selectImagePlugln");
+
+        selectImageHandler.openImageUploadModal = function (elem) {
+            selectImageHandler.currentImage = elem;
+            //Calculate thumbox image
+            var thumb = selectImageHandler.options.thumbBox;
+            var imageBox = selectImageHandler.options.imageBox;
+            var dimention = JSON.parse(elem.getAttribute("comp-dimentions"));
+            console.log("dimension: ", dimention);
+            if (!dimention) {
+                dimention = [];
+                dimention.push(elem.getBoundingClientRect().height);
+                dimention.push(elem.getBoundingClientRect().width);
+
+            }
+            var height = dimention[1];
+            var width = dimention[0];
+            var top = -height / 2;
+            console.log("dimension: ", dimention);
+            thumb.style.height = height + "px";
+            thumb.style.width = width + "px"
+            thumb.style.marginTop = top + "px";
+            thumb.style.marginLeft = (imageBox.getBoundingClientRect().width - width) / 2 + "px";
+            $(selectImageHandler.selectImage).modal("show");
+        }
+
+        selectImageHandler.options = {
+            imageBox: selectImageHandler.selectImage.querySelector('[uploadImageTempl-role = "wallImg"]'),
+            thumbBox: selectImageHandler.selectImage.querySelector('[uploadImageTempl-role = "thumbWall"]'),
+            spinner: selectImageHandler.selectImage.querySelector('[uploadImageTempl-role = "spinnerWall"]'),
+            imgSrc: ''
+        }
+
+        selectImageHandler.initWall = function (el) {
+
+            var reader = new FileReader();
+            if (!selectImageHandler.neo_cropper) {
+                selectImageHandler.neo_cropper = new selectImageHandler.cropbox(selectImageHandler.options,
+                    selectImageHandler.wallPreview);
+            }
+            reader.onload = function (e) {
+                selectImageHandler.options.imgSrc = e.target.result;
+                selectImageHandler.neo_cropper.resetOption(selectImageHandler.options);
+            }
+            reader.readAsDataURL(el.files[0]);
+            //el.files = [];
+            selectImageHandler.selectImage.querySelector('[action-role="wall_btnZoomIn"]').addEventListener('click', function () {
+                selectImageHandler.neo_cropper.zoomIn();
+            })
+            selectImageHandler.selectImage.querySelector('[action-role="wall_btnZoomOut"]').addEventListener('click', function () {
+                selectImageHandler.neo_cropper.zoomOut();
+            })
+        };
+
+        selectImageHandler.wallPreview = function (data) {
+            // img_Wall = data;
+            selectImageHandler.selectImage.querySelectorAll('[uploadImageTempl-role = "wall_preview"]').forEach((
+                elem) => {
+                elem.setAttribute('src', data);
+            });
+            if (selectImageHandler.currentImage) {
+                selectImageHandler.currentImage.setAttribute('src', data);
+            }
+        }
+        selectImageHandler.neo_cropper = new selectImageHandler.cropbox(selectImageHandler.options, selectImageHandler.wallPreview);
+
+
+        selectImageHandler.selectImage.querySelector('[uploadImageTempl-role="wallFile"]').addEventListener('change',
+            function () {
+                selectImageHandler.initWall(this);
+            }, false);
+    </script>
+    <!--end of SelectImage Component-->
