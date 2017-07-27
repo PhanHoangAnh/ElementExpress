@@ -341,8 +341,7 @@ function createAttributePanel(nodeCopy, title) {
     main_panel.classList.add("col-md-12");
     main_panel.classList.add("col-lg-12");
     main_panel.classList.add("clearfix");
-    for (var item in fields) {
-        console.log(item, fields[item]);
+    for (var item in fields) {        
         var label = document.createElement("LABEL");
         label.classList.add("col-lg-12");
         label.classList.add("col-md-12");
