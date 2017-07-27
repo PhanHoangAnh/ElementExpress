@@ -452,7 +452,7 @@ function createAttributePanel(nodeCopy, title) {
                 var temp = document.importNode(item, true);
                 var currentNode = dropPad.appendChild(temp);
                 dropPad.lastElementChild.setAttribute('app-value', imgDataOptions[opt].value);
-            }
+            }            
         }
     }
     var hr = document.createElement("hr");
@@ -666,4 +666,46 @@ function activeShow(elem, event) {
 
 function itemFocuses(elem) {
     console.log("Item focus: ", elem);
+}
+
+function getOptionImage(evt) {
+    var selectHandler = getHandler(evt, "selectHandler");
+    // evt.stopPropagation();
+    imgOptionHandler = getHandler(evt, "imgOptionHandler").referParentElem
+
+    function getHandler(elem, att) {
+        // console.log(elem);
+        // if (elem.parentNode.getAttribute('app-role') == "selectHandler") {
+        if (elem.parentNode.getAttribute('app-role') == att) {
+            // console.log("finish : ", elem, elem.parentNode)
+            return elem.parentNode
+        } else {
+            return getHandler(elem.parentNode, att);
+        }
+    }
+
+    // console.log("imgOptionHandler parent: ", imgOptionHandler)
+    var selectbox = selectHandler.querySelector('[app-role="selectbox"]');
+    toggleShow(selectbox);
+    // remove all childs
+    while (selectbox.firstChild) {
+        selectbox.removeChild(selectbox.firstChild);
+    }
+    // clone this node
+    var cln = evt.cloneNode(true);
+    // remove action Listener
+    cln.onclick = null;
+    selectbox.appendChild(cln);
+    var bntBox = cln.querySelector('.s-button');
+    if (bntBox) {
+        bntBox.parentNode.removeChild(bntBox);
+    };
+    // change the css indicate selectedItem.
+    // remove current css of selected item
+    var curr = selectHandler.querySelector('.curr');
+    if (curr) {
+        curr.classList.remove('curr');
+    };
+    // ad this css for new element
+    evt.classList.add('curr');
 }
