@@ -35,7 +35,10 @@
             </div>
             <script type = "text/javascript">
                 // registering dependent modules
-                selectImageHandler.initiate();
+                function test(data){
+                    console.log("test callback");
+                }
+                selectImageHandler.initiate(test);
             </script>
         </template>
         <div class="container-fluid">
