@@ -341,7 +341,7 @@ function createAttributePanel(nodeCopy, title) {
     main_panel.classList.add("col-md-12");
     main_panel.classList.add("col-lg-12");
     main_panel.classList.add("clearfix");
-    for (var item in fields) {        
+    for (var item in fields) {
         var label = document.createElement("LABEL");
         label.classList.add("col-lg-12");
         label.classList.add("col-md-12");
@@ -425,7 +425,7 @@ function createAttributePanel(nodeCopy, title) {
             input_cover.appendChild(input);
             main_panel.appendChild(input_cover);
             var dropPad = input_cover.querySelector('[app-role="droppad"]');
-            
+
             //http: //stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
 
             if (!nodeCopy.get(0).CUST) {
@@ -450,9 +450,10 @@ function createAttributePanel(nodeCopy, title) {
                 }
                 img.setAttribute('src', imgSrc);
                 var temp = document.importNode(item, true);
+                temp.querySelector('[app-role="selectItem"]').setAttribute('app-value', imgDataOptions[opt].value);
                 var currentNode = dropPad.appendChild(temp);
-                dropPad.lastElementChild.setAttribute('app-value', imgDataOptions[opt].value);
-            }            
+                // dropPad.lastElementChild.setAttribute('app-value', imgDataOptions[opt].value);
+            }
         }
     }
     var hr = document.createElement("hr");
@@ -638,8 +639,11 @@ function saveElement() {
     document.getElementById("printJSON").innerHTML = JSON.stringify(compObj, undefined, 2);
 }
 
+// image option region
 
-function toggleShow(elem, event) {
+var imageOption = {}
+
+imageOption.toggleShow = function (elem, event) {
     // console.log(elem);
     if (elem) {
         elem.classList.toggle("active");
@@ -648,7 +652,7 @@ function toggleShow(elem, event) {
     }
 }
 
-function hideShow(elem) {
+imageOption.hideShow = function (elem) {
     if (elem) {
         elem.classList.remove("active");
         var dropdown = elem.parentNode.querySelector('[app-role="dropdown"]');
@@ -656,7 +660,7 @@ function hideShow(elem) {
     }
 }
 
-function activeShow(elem, event) {
+imageOption.activeShow = function (elem, event) {
     if (elem) {
         elem.classList.add("active");
         var dropdown = elem.parentNode.querySelector('[app-role="dropdown"]');
@@ -664,29 +668,18 @@ function activeShow(elem, event) {
     }
 }
 
-function itemFocuses(elem) {
+imageOption.itemFocuses = function (elem) {
     console.log("Item focus: ", elem);
 }
 
-function getOptionImage(evt) {
-    var selectHandler = getHandler(evt, "selectHandler");
+imageOption.getOptionImage = function (evt) {
+    var selectHandler = imageOption.getHandler(evt, "selectHandler");
     // evt.stopPropagation();
-    imgOptionHandler = getHandler(evt, "imgOptionHandler").referParentElem
-
-    function getHandler(elem, att) {
-        // console.log(elem);
-        // if (elem.parentNode.getAttribute('app-role') == "selectHandler") {
-        if (elem.parentNode.getAttribute('app-role') == att) {
-            // console.log("finish : ", elem, elem.parentNode)
-            return elem.parentNode
-        } else {
-            return getHandler(elem.parentNode, att);
-        }
-    }
+    imgOptionHandler = imageOption.getHandler(evt, "imgOptionHandler").referParentElem
 
     // console.log("imgOptionHandler parent: ", imgOptionHandler)
     var selectbox = selectHandler.querySelector('[app-role="selectbox"]');
-    toggleShow(selectbox);
+    imageOption.toggleShow(selectbox);
     // remove all childs
     while (selectbox.firstChild) {
         selectbox.removeChild(selectbox.firstChild);
@@ -708,4 +701,28 @@ function getOptionImage(evt) {
     };
     // ad this css for new element
     evt.classList.add('curr');
+}
+
+imageOption.updateImageOption = function (data) {    
+    var selectItem = imageOption.getHandler(selectImageHandler.currentElement, "selectItem")
+    var selectImage = selectItem.querySelector('[app-role="attImg"]');
+    selectImage.setAttribute("src", data);
+    imgOptionHandler = imageOption.getHandler(selectImageHandler.currentElement, "imgOptionHandler").referParentElem
+    var itemValue = selectItem.getAttribute('app-value');
+    console.log("imageOptionHandler:", imgOptionHandler, "itemValue:",itemValue);
+    
+
+}
+
+// imageOption Utility
+
+imageOption.getHandler = function(elem, att) {
+    // console.log(elem);
+    // if (elem.parentNode.getAttribute('app-role') == "selectHandler") {
+    if (elem.parentNode.getAttribute('app-role') == att) {
+        // console.log("finish : ", elem, elem.parentNode)
+        return elem.parentNode
+    } else {
+        return imageOption.getHandler(elem.parentNode, att);
+    }
 }

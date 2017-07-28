@@ -71,8 +71,7 @@
 
     selectImageHandler.fnArr = [];
 
-    selectImageHandler.initiate = function () {
-        console.log("ukie");
+    selectImageHandler.initiate = function () {        
         document.querySelectorAll('[app-action = "selectImage"]').forEach((elem) => {
             elem.addEventListener('click', function (event, el) {
                 // selectImageHandler.selectImage.style.zIndex = this.style.zIndex + 1;
@@ -246,7 +245,7 @@
     selectImageHandler.selectImage = document.querySelector("selectImagePlugln");
 
     selectImageHandler.openImageUploadModal = function (elem) {
-        selectImageHandler.currentImage = elem;
+        selectImageHandler.currentElement = elem;
         //Calculate thumbox image
         var thumb = selectImageHandler.options.thumbBox;
         var imageBox = selectImageHandler.options.imageBox;
@@ -260,7 +259,7 @@
         var height = dimensions[1];
         var width = dimensions[0];
         var top = -height / 2;
-        console.log("dimension: ", dimensions);
+        // console.log("dimension: ", dimensions);
         if (imageBox.style.height<= height){
             imageBox.style.height = height + 100 + "px";
         }
@@ -307,9 +306,9 @@
             elem) => {
             elem.setAttribute('src', data);
         });
-        if (selectImageHandler.currentImage) {
-            selectImageHandler.currentImage.setAttribute('src', data);
-        }
+        // if (selectImageHandler.currentElement) {
+        //     selectImageHandler.currentElement.setAttribute('src', data);
+        // }
         if (selectImageHandler.fnArr){
             selectImageHandler.fnArr.forEach(function(fn){
                 fn(data);
