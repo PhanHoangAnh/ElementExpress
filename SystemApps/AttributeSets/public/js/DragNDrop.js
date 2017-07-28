@@ -644,7 +644,7 @@ function saveElement() {
 var imageOption = {}
 
 imageOption.toggleShow = function (elem, event) {
-    // console.log(elem);
+    console.log(elem);
     if (elem) {
         elem.classList.toggle("active");
         var dropdown = elem.parentNode.querySelector('[app-role="dropdown"]');
@@ -653,6 +653,7 @@ imageOption.toggleShow = function (elem, event) {
 }
 
 imageOption.hideShow = function (elem) {
+    // console.log(elem);
     if (elem) {
         elem.classList.remove("active");
         var dropdown = elem.parentNode.querySelector('[app-role="dropdown"]');
@@ -669,7 +670,7 @@ imageOption.activeShow = function (elem, event) {
 }
 
 imageOption.itemFocuses = function (elem) {
-    console.log("Item focus: ", elem);
+    // console.log("Item focus: ", elem);
 }
 
 imageOption.getOptionImage = function (evt) {
@@ -703,20 +704,26 @@ imageOption.getOptionImage = function (evt) {
     evt.classList.add('curr');
 }
 
-imageOption.updateImageOption = function (data) {    
+imageOption.updateImageOption = function (data) {
     var selectItem = imageOption.getHandler(selectImageHandler.currentElement, "selectItem")
     var selectImage = selectItem.querySelector('[app-role="attImg"]');
     selectImage.setAttribute("src", data);
     imgOptionHandler = imageOption.getHandler(selectImageHandler.currentElement, "imgOptionHandler").referParentElem
     var itemValue = selectItem.getAttribute('app-value');
-    console.log("imageOptionHandler:", imgOptionHandler, "itemValue:",itemValue);
-    
+    var imageArrStore = imgOptionHandler.CUST.ImageOptions;
+    for (var i = 0; i < imageArrStore.length; i++) {
+        if (imageArrStore[i].value == itemValue) {
+            imageArrStore[i].img = data
+        }
+    }
+    imageOption.getOptionImage(selectItem);
+    imageOption.hideShow(imgOptionHandler.querySelector('[app-role="selectbox"]'));
 
 }
 
 // imageOption Utility
 
-imageOption.getHandler = function(elem, att) {
+imageOption.getHandler = function (elem, att) {
     // console.log(elem);
     // if (elem.parentNode.getAttribute('app-role') == "selectHandler") {
     if (elem.parentNode.getAttribute('app-role') == att) {
