@@ -9,35 +9,39 @@
             </div>
         </template>
         <template id='extraOptionImgHandler'>
-            <div class="ctr-select-box" app-role="selectHandler" onfocus="imageOption.activeShow(this, event)" onblur="hideShow(this)" tabindex="0">
+            <div class="ctr-select-box" app-role="selectHandler" onfocus="imageOption.activeShow(this, event)" onblur="hideShow(this)"
+                tabindex="0">
                 <div app-role="selectbox" class="ctr-select-value" onclick="imageOption.toggleShow(this, event)"> Select here
                 </div>
                 <div app-role="dropdown" class="ctr-select-down">
                     <div app-role="droppad">
                     </div>
                     <div class="s-bottom">
-                        <a class="btn" app-role="addMoreImgOption" app-action="imageOption.selectImage" templHandler="imageHandler" comp-dimensions= [450,450]><i class="fa fa-plus"></i> Add More</a>
+                        <a class="btn" app-role="addMoreImgOption" app-action="imageOption.selectImage" templHandler="imageHandler" comp-dimensions=[
+                            450,450]><i class="fa fa-plus"></i> Add More</a>
                     </div>
                 </div>
             </div>
         </template>
         <template id='extraOptionImgItem'>
-              <div class="ctr-select-option" app-role="selectItem" onclick='imageOption.getOptionImage(this)' onfocus="imageOption.itemFocuses(this)" tabindex="0">  
-             <!-- <div class="ctr-select-option" app-role="selectItem" tabindex="0">  -->
+            <div class="ctr-select-option" app-role="selectItem" onclick='imageOption.getOptionImage(this)' onfocus="imageOption.itemFocuses(this)"
+                tabindex="0">
+                <!-- <div class="ctr-select-option" app-role="selectItem" tabindex="0">  -->
                 <div class="s-img"><img app-role="attImg" src="" class="img-flag"></div>
                 <div class="s-content">
                     <label app-role="attName"></label>
                     <div class="s-button">
-                        <a class="btn" app-role="deleteImgOption"><i class="fa fa-times" ></i> Delete</a>
-                        <a class="btn" app-role="editImgOption" app-action="selectImage" templHandler="imageHandler" comp-dimensions= [450,450]><i class="fa fa-pencil"></i> Edit</a>
+                        <a class="btn" app-role="deleteImgOption" onclick="imageOption.deleteFn(this)"><i class="fa fa-times" ></i> Delete</a>
+                        <a class="btn" app-role="editImgOption" app-action="selectImage" templHandler="imageHandler" comp-dimensions=[ 450,450]><i class="fa fa-pencil"></i> Edit</a>
                     </div>
                 </div>
             </div>
-            <script type = "text/javascript">
+            <script type="text/javascript">
                 // registering dependent modules                
                 selectImageHandler.initiate(imageOption.updateImageOption);
             </script>
         </template>
+        
         <div class="container-fluid">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <fieldset class="scheduler-border">

@@ -643,8 +643,7 @@ function saveElement() {
 
 var imageOption = {}
 
-imageOption.toggleShow = function (elem, event) {
-    console.log(elem);
+imageOption.toggleShow = function (elem, event) {    
     if (elem) {
         elem.classList.toggle("active");
         var dropdown = elem.parentNode.querySelector('[app-role="dropdown"]');
@@ -676,7 +675,7 @@ imageOption.itemFocuses = function (elem) {
 imageOption.getOptionImage = function (evt) {
     var selectHandler = imageOption.getHandler(evt, "selectHandler");
     // evt.stopPropagation();
-    imgOptionHandler = imageOption.getHandler(evt, "imgOptionHandler").referParentElem
+    // imgOptionHandler = imageOption.getHandler(evt, "imgOptionHandler").referParentElem
 
     // console.log("imgOptionHandler parent: ", imgOptionHandler)
     var selectbox = selectHandler.querySelector('[app-role="selectbox"]');
@@ -733,3 +732,20 @@ imageOption.getHandler = function (elem, att) {
         return imageOption.getHandler(elem.parentNode, att);
     }
 }
+
+imageOption.deleteFn = function(elem){    
+    event.stopPropagation();
+    var selectItem = imageOption.getHandler(elem, "selectItem");
+    var selectHandler = imageOption.getHandler(elem, "selectHandler");    
+    var selectbox = selectHandler.querySelector('[app-role="selectbox"]');
+    imageOption.toggleShow(selectbox);
+    // remove all childs
+    while (selectbox.firstChild) {
+        selectbox.removeChild(selectbox.firstChild);
+    }
+    selectbox.innerHTML = "Select here";
+    
+    selectItem.parentNode.removeChild(selectItem);
+}
+
+
