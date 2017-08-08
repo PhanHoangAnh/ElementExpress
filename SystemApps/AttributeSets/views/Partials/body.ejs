@@ -17,8 +17,7 @@
                     <div app-role="droppad">
                     </div>
                     <div class="s-bottom">
-                        <a class="btn" app-role="addMoreImgOption" app-action="imageOption.selectImage" templHandler="imageHandler" comp-dimensions=[
-                            450,450]><i class="fa fa-plus"></i> Add More</a>
+                        <a class="btn" onclick="imageOption.addmoreFn(this,event)" templHandler="imageHandler" comp-dimensions=[450,450]><i class="fa fa-plus"></i> Add More</a>
                     </div>
                 </div>
             </div>
@@ -32,7 +31,7 @@
                     <label app-role="attName"></label>
                     <div class="s-button">
                         <a class="btn" app-role="deleteImgOption" onclick="imageOption.deleteFn(this)"><i class="fa fa-times" ></i> Delete</a>
-                        <a class="btn" app-role="editImgOption" app-action="selectImage" templHandler="imageHandler" comp-dimensions=[ 450,450]><i class="fa fa-pencil"></i> Edit</a>
+                        <a class="btn" app-role="editImgOption" app-action="selectImage" templHandler="imageHandler" comp-dimensions=[450,450]><i class="fa fa-pencil"></i> Edit</a>
                     </div>
                 </div>
             </div>
@@ -48,7 +47,7 @@
                     <legend class="scheduler-border">Create Attribute Sets </legend>
                     <div class="row">
                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="SetsIcon">
-                            <img src='imgs/logo.png' id="iconHolder" data-toggle="modal" data-target="#m_icon">
+                            <img src='imgs/logo.png' id="iconHolder" >
                         </div>
                         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="SetsName">
                             <legend data-controltype="label">Set's Name</legend>

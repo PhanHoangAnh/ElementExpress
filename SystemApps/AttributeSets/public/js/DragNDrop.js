@@ -734,18 +734,29 @@ imageOption.getHandler = function (elem, att) {
 }
 
 imageOption.deleteFn = function(elem){    
-    event.stopPropagation();
+    event.stopPropagation();    
     var selectItem = imageOption.getHandler(elem, "selectItem");
+    console.log(selectItem);
+    var itemValue = selectItem.getAttribute('app-value');
+    imgOptionHandler = imageOption.getHandler(selectItem, "imgOptionHandler").referParentElem
+    var imageArrStore = imgOptionHandler.CUST.ImageOptions;
     var selectHandler = imageOption.getHandler(elem, "selectHandler");    
     var selectbox = selectHandler.querySelector('[app-role="selectbox"]');
+
+    imgOptionHandler.CUST.ImageOptions = imageArrStore.filter(function(obj){
+        return obj.value.toString() !== itemValue;
+    })
     imageOption.toggleShow(selectbox);
     // remove all childs
     while (selectbox.firstChild) {
         selectbox.removeChild(selectbox.firstChild);
     }
-    selectbox.innerHTML = "Select here";
-    
+    selectbox.innerHTML = "Select here";    
     selectItem.parentNode.removeChild(selectItem);
 }
 
-
+imageOption.addmoreFn = function(elem){
+    var input = document.importNode(document.getElementById('extraOptionImgHandler').content, true);
+    var dropPad = imageOption.getHandler(elem, 'selectItem').querySelector('[app-role="droppad"]');
+    dropPad.appendChild(input);
+}
