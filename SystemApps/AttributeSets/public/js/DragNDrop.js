@@ -738,7 +738,7 @@ imageOption.deleteFn = function(elem){
     var selectItem = imageOption.getHandler(elem, "selectItem");
     console.log(selectItem);
     var itemValue = selectItem.getAttribute('app-value');
-    imgOptionHandler = imageOption.getHandler(selectItem, "imgOptionHandler").referParentElem
+    var imgOptionHandler = imageOption.getHandler(selectItem, "imgOptionHandler").referParentElem
     var imageArrStore = imgOptionHandler.CUST.ImageOptions;
     var selectHandler = imageOption.getHandler(elem, "selectHandler");    
     var selectbox = selectHandler.querySelector('[app-role="selectbox"]');
@@ -759,4 +759,21 @@ imageOption.addmoreFn = function(elem){
     var input = document.importNode(document.getElementById('extraOptionImgHandler').content, true);
     var dropPad = imageOption.getHandler(elem, 'selectItem').querySelector('[app-role="droppad"]');
     dropPad.appendChild(input);
+}
+
+imageOption.changeAttributeName = function(elem){       
+    var controlHandler = imageOption.getHandler(selectImageHandler.currentElement, "selectItem")
+    var imgOpt = controlHandler.querySelector('[app-role="attName"]');
+    var itemValue = controlHandler.getAttribute('app-value');    
+    imgOpt.innerHTML = elem.value;
+
+    var imgOptionHandler = imageOption.getHandler(imgOpt, "imgOptionHandler").referParentElem
+    var imageArrStore = imgOptionHandler.CUST.ImageOptions;
+    for (var i = 0; i < imageArrStore.length; i++) {
+        if (imageArrStore[i].value == itemValue) {
+            imageArrStore[i].optName = elem.value;
+        }
+    }
+
+    //app-role="imgOptionHandler"
 }
