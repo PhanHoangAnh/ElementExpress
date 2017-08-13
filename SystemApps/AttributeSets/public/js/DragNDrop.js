@@ -772,9 +772,12 @@ imageOption.addmoreFn = function (elem) {
     }
     imageArrStore.push(imgTempObj);    
     input.querySelector('[app-role="selectItem"]').setAttribute('app-value', max+1);
+    var editBnt = input.querySelector('[app-role="editImgOption"]')
     dropPad.appendChild(input);
-    console.log("input:", input.querySelector('[app-role="selectItem"]'));
-    //selectImageHandler.openImageUploadModal();
+    
+
+    console.log("input:", editBnt);;
+    selectImageHandler.openImageUploadModal(editBnt);
 }
 
 imageOption.changeAttributeName = function (elem) {
