@@ -643,7 +643,7 @@ function saveElement() {
 
 var imageOption = {}
 
-imageOption.toggleShow = function (elem, event) {    
+imageOption.toggleShow = function (elem, event) {
     if (elem) {
         elem.classList.toggle("active");
         var dropdown = elem.parentNode.querySelector('[app-role="dropdown"]');
@@ -733,17 +733,16 @@ imageOption.getHandler = function (elem, att) {
     }
 }
 
-imageOption.deleteFn = function(elem){    
-    event.stopPropagation();    
+imageOption.deleteFn = function (elem) {
+    event.stopPropagation();
     var selectItem = imageOption.getHandler(elem, "selectItem");
-    console.log(selectItem);
     var itemValue = selectItem.getAttribute('app-value');
     var imgOptionHandler = imageOption.getHandler(selectItem, "imgOptionHandler").referParentElem
     var imageArrStore = imgOptionHandler.CUST.ImageOptions;
-    var selectHandler = imageOption.getHandler(elem, "selectHandler");    
+    var selectHandler = imageOption.getHandler(elem, "selectHandler");
     var selectbox = selectHandler.querySelector('[app-role="selectbox"]');
 
-    imgOptionHandler.CUST.ImageOptions = imageArrStore.filter(function(obj){
+    imgOptionHandler.CUST.ImageOptions = imageArrStore.filter(function (obj) {
         return obj.value.toString() !== itemValue;
     })
     imageOption.toggleShow(selectbox);
@@ -751,20 +750,37 @@ imageOption.deleteFn = function(elem){
     while (selectbox.firstChild) {
         selectbox.removeChild(selectbox.firstChild);
     }
-    selectbox.innerHTML = "Select here";    
+    selectbox.innerHTML = "Select here";
     selectItem.parentNode.removeChild(selectItem);
 }
 
-imageOption.addmoreFn = function(elem){
-    var input = document.importNode(document.getElementById('extraOptionImgHandler').content, true);
-    var dropPad = imageOption.getHandler(elem, 'selectItem').querySelector('[app-role="droppad"]');
+imageOption.addmoreFn = function (elem) {
+    var input = document.importNode(document.getElementById('extraOptionImgItem').content, true);
+    var dropPad = imageOption.getHandler(elem, 'selectHandler').querySelector('[app-role="droppad"]');
+    var imgOptionHandler = imageOption.getHandler(dropPad, "imgOptionHandler").referParentElem
+    var label = input.querySelector('[app-role="attName"]');
+    label.innerHTML = "new Item";
+    var imageArrStore = imgOptionHandler.CUST.ImageOptions;
+    var max = Math.max.apply(Math, imageArrStore.map(function(o){
+        console.log("o", o.value);
+        return o.value;
+    }));
+    var imgTempObj = {
+        img:null,
+        optName: null,
+        value: max + 1
+    }
+    imageArrStore.push(imgTempObj);    
+    input.querySelector('[app-role="selectItem"]').setAttribute('app-value', max+1);
     dropPad.appendChild(input);
+    console.log("input:", input.querySelector('[app-role="selectItem"]'));
+    //selectImageHandler.openImageUploadModal();
 }
 
-imageOption.changeAttributeName = function(elem){       
+imageOption.changeAttributeName = function (elem) {
     var controlHandler = imageOption.getHandler(selectImageHandler.currentElement, "selectItem")
     var imgOpt = controlHandler.querySelector('[app-role="attName"]');
-    var itemValue = controlHandler.getAttribute('app-value');    
+    var itemValue = controlHandler.getAttribute('app-value');
     imgOpt.innerHTML = elem.value;
 
     var imgOptionHandler = imageOption.getHandler(imgOpt, "imgOptionHandler").referParentElem
@@ -774,6 +790,7 @@ imageOption.changeAttributeName = function(elem){
             imageArrStore[i].optName = elem.value;
         }
     }
-
     //app-role="imgOptionHandler"
+    imageOption.getOptionImage(controlHandler);
+    imageOption.hideShow(imgOptionHandler.querySelector('[app-role="selectbox"]'));
 }
