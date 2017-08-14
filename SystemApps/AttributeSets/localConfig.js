@@ -10,7 +10,8 @@ var AppConf = {
     scripts: globalPath + "scripts",
     background: "../../GlobalElements/views/BlueBackground/bluebackground.ejs",
     navbar: "../../GlobalElements/views/NavBar/navbar.ejs",
-    selectImage: localPath + "selectImagePlugIn.ejs"
+    selectImage: localPath + "selectImagePlugIn.ejs",
+    simpleImage: localPath + "simpleImgPlugin.ejs"
 }
 
 module.exports = AppConf;
