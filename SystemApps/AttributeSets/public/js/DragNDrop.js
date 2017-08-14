@@ -716,17 +716,14 @@ imageOption.updateImageOption = function (data) {
         }
     }
     imageOption.getOptionImage(selectItem);
-    imageOption.hideShow(imgOptionHandler.querySelector('[app-role="selectbox"]'));
+    imageOption.hideShow(imageOption.getHandler(selectItem, "dropdown"));
 
 }
 
 // imageOption Utility
 
 imageOption.getHandler = function (elem, att) {
-    // console.log(elem);
-    // if (elem.parentNode.getAttribute('app-role') == "selectHandler") {
     if (elem.parentNode.getAttribute('app-role') == att) {
-        // console.log("finish : ", elem, elem.parentNode)
         return elem.parentNode
     } else {
         return imageOption.getHandler(elem.parentNode, att);
@@ -761,23 +758,20 @@ imageOption.addmoreFn = function (elem) {
     var label = input.querySelector('[app-role="attName"]');
     label.innerHTML = "new Item";
     var imageArrStore = imgOptionHandler.CUST.ImageOptions;
-    var max = Math.max.apply(Math, imageArrStore.map(function(o){
-        console.log("o", o.value);
+    var max = Math.max.apply(Math, imageArrStore.map(function (o) {        
         return o.value;
     }));
     var imgTempObj = {
-        img:null,
+        img: null,
         optName: null,
         value: max + 1
     }
-    imageArrStore.push(imgTempObj);    
-    input.querySelector('[app-role="selectItem"]').setAttribute('app-value', max+1);
+    imageArrStore.push(imgTempObj);
+    input.querySelector('[app-role="selectItem"]').setAttribute('app-value', max + 1);
     var editBnt = input.querySelector('[app-role="editImgOption"]')
     dropPad.appendChild(input);
-    
-
-    console.log("input:", editBnt);;
     selectImageHandler.openImageUploadModal(editBnt);
+
 }
 
 imageOption.changeAttributeName = function (elem) {
@@ -792,8 +786,7 @@ imageOption.changeAttributeName = function (elem) {
         if (imageArrStore[i].value == itemValue) {
             imageArrStore[i].optName = elem.value;
         }
-    }
-    //app-role="imgOptionHandler"
+    }       
     imageOption.getOptionImage(controlHandler);
-    imageOption.hideShow(imgOptionHandler.querySelector('[app-role="selectbox"]'));
+    imageOption.hideShow(imageOption.getHandler(controlHandler, "dropdown"));
 }

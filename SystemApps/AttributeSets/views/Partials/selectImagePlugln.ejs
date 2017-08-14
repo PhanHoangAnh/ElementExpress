@@ -300,9 +300,6 @@
             elem) => {
             elem.setAttribute('src', data);
         });
-        // if (selectImageHandler.currentElement) {
-        //     selectImageHandler.currentElement.setAttribute('src', data);
-        // }
         if (selectImageHandler.fnArr) {
             selectImageHandler.fnArr.forEach(function (fn) {
                 fn(data);
