@@ -9,7 +9,7 @@
             </div>
         </template>
         <template id='extraOptionImgHandler'>
-            <div class="ctr-select-box" app-role="selectHandler" onfocus="imageOption.activeShow(this, event)" onblur="hideShow(this)"
+            <div class="ctr-select-box" app-role="selectHandler" onfocus="imageOption.activeShow(this, event)" onblur="imageOption.hideShow(this)"
                 tabindex="0">
                 <div app-role="selectbox" class="ctr-select-value" onclick="imageOption.toggleShow(this, event)"> Select here
                 </div>
@@ -47,7 +47,7 @@
                     <legend class="scheduler-border">Create Attribute Sets </legend>
                     <div class="row">
                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="SetsIcon">
-                            <img src='imgs/logo.png' id="iconHolder" app-action = "simpleImg" templHandler = "imageHandler">
+                            <img src='imgs/logo.png' id="iconHolder" app-action = "simpleImg" templHandler = "imageHandler" onload = "setAttribIcon(this)" comp-dimensions=[300,300]>
                         </div>
                         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="SetsName">
                             <legend data-controltype="label">Set's Name</legend>

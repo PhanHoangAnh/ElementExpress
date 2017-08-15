@@ -223,8 +223,7 @@
         //Calculate thumbox image
         var thumb = simpleImgPlugin.options.thumbBox;
         var imageBox = simpleImgPlugin.options.imageBox;
-        var dimention = JSON.parse(elem.getAttribute("comp-dimentions"));
-        console.log("dimension: ", dimention);
+        var dimention = JSON.parse(elem.getAttribute("comp-dimensions"));
         if (!dimention) {
             dimention = [];
             dimention.push(elem.getBoundingClientRect().height);
@@ -234,7 +233,7 @@
         var height = dimention[1];
         var width = dimention[0];
         var top = -height / 2;
-        console.log("dimension: ", dimention);
+        
         thumb.style.height = height + "px";
         thumb.style.width = width + "px"
         thumb.style.marginTop = top + "px";

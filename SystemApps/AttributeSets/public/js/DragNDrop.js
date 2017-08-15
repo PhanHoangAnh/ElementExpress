@@ -639,6 +639,10 @@ function saveElement() {
     document.getElementById("printJSON").innerHTML = JSON.stringify(compObj, undefined, 2);
 }
 
+function setAttribIcon(elem){
+    // console.log("here: ", elem.src);
+    compObj.img = elem.src;
+}
 // image option region
 
 var imageOption = {}
