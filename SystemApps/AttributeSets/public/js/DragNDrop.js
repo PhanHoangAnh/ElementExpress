@@ -699,6 +699,55 @@ function setAttribIcon(elem) {
     compObj.img = elem.src;
 }
 // image option region
+var htmlJSON = {
+    "components": [{
+            "data-controlType": "text",
+            "attributes": {
+                "id": "con vit",
+                "label": "con vit",
+                "placeholder": "something",
+                "describe": "someproblem",
+                "required": "on"
+            }
+        },
+        {
+            "data-controlType": "textarea",
+            "attributes": {
+                "id": "meo",
+                "label": "cho",
+                "describe": "cun"
+            }
+        },
+        {
+            "data-controlType": "combobox",
+            "attributes": {
+                "id": "con vit",
+                "label": "con meo",
+                "options": "value 1\nvalue 2\nvalue 3\nvalue 4",
+                "placeholder": "meo",
+                "describe": "something",
+                "required": "on"
+            }
+        },
+        {
+            "data-controlType": "checkbox",
+            "attributes": {
+                "id": "abcd",
+                "label": "defg",
+                "describe": "conit",
+                "options": "value 1\nvalue 2\nvalue 3\nvalue 5"
+            }
+        }
+    ]
+}
+
+loadOptionSets(htmlJSON);
+
+// Testing loadOptionSets function
+
+
+
+// End of test
 
 var imageOption = {}
 
