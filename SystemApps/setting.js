@@ -5,12 +5,12 @@ var setting = [
     path: "../AppManager/",
     logo: "appManager/imgs/logo.png"
 }, 
-{
-    name: "Create Option Sets",
-    url: "OptionSets",
-    path: "../../CreateOptionSets/routes",
-    logo: "OptionSets/imgs/LogoIcon.png"
-}, 
+// {
+//     name: "Create Option Sets",
+//     url: "OptionSets",
+//     path: "../../CreateOptionSets/routes",
+//     logo: "OptionSets/imgs/LogoIcon.png"
+// }, 
 {
     name: "Create AttributeSets",
     url: "AttributeSets",

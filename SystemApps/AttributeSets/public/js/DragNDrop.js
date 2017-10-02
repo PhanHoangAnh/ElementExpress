@@ -639,7 +639,62 @@ function saveElement() {
     document.getElementById("printJSON").innerHTML = JSON.stringify(compObj, undefined, 2);
 }
 
-function setAttribIcon(elem){
+function loadOptionSets(optSet) {
+    //1. Load option Sets Name
+    var setsName = document.getElementById("SetsName").querySelector('[data-controltype="label"]');
+    compObj.setName = setsName.innerHTML = optSet.setName;
+    compObj.objId = optSet._id;
+    //2. Rendering component and its attributes
+    // clear div2 before add new element
+
+     var creatAttributePad = document.querySelector('creatAttributePad');
+    // var sortableDiv = document.querySelector("#div2");
+    var airField = creatAttributePad.querySelector('[component-role = "receivedPad"]');
+    
+    while (airField.firstChild) {
+        airField.removeChild(airField.firstChild);
+    }
+    //
+    var _data = getAttDatas();
+    for (var i in optSet.components) {
+        var mockObj = {};
+        for (var k in _data) {
+            if (optSet.components[i] && _data[k]["Input Type"] == optSet.components[i]["data-controlType"]) {
+                mockObj.fields = _data[k]["fields"];
+                break;
+            }
+        }
+        for (var k in mockObj.fields) {
+            var compareItem = optSet.components[i].attributes[k];
+            if (!compareItem) {
+                break;
+            }
+            // Must be updated here Chipl
+            if (k == "options") {
+                var optArr = compareItem.split('\n');
+                optArr = optArr.filter(function (n) {
+                    return n != "";
+                });
+                mockObj.fields[k] = optArr;
+            } else if (k != "ImageOptions") {
+                mockObj.fields[k].value = compareItem;
+            }
+        }
+        // mockObj.fields =
+        if (optSet.components[i]) {
+            mockObj["Input Type"] = optSet.components[i]["data-controlType"];
+            mockObj["label"] = optSet.components[i]["attributes"]["label"];
+            // copy object to avoid the refer
+            var CUST = Object.assign({}, optSet["components"][i]["attributes"])
+            mockObj["CUST"] = CUST;
+            createSingleControlGroup(mockObj, true);
+        }
+
+    }
+}
+
+
+function setAttribIcon(elem) {
     // console.log("here: ", elem.src);
     compObj.img = elem.src;
 }
@@ -762,7 +817,7 @@ imageOption.addmoreFn = function (elem) {
     var label = input.querySelector('[app-role="attName"]');
     label.innerHTML = "new Item";
     var imageArrStore = imgOptionHandler.CUST.ImageOptions;
-    var max = Math.max.apply(Math, imageArrStore.map(function (o) {        
+    var max = Math.max.apply(Math, imageArrStore.map(function (o) {
         return o.value;
     }));
     var imgTempObj = {
@@ -790,7 +845,7 @@ imageOption.changeAttributeName = function (elem) {
         if (imageArrStore[i].value == itemValue) {
             imageArrStore[i].optName = elem.value;
         }
-    }       
+    }
     imageOption.getOptionImage(controlHandler);
     imageOption.hideShow(imageOption.getHandler(controlHandler, "dropdown"));
 }
