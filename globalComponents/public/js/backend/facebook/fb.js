@@ -11,7 +11,7 @@ fbHandler = function(fn_cb, loginBnt) {
             statusChangeCallback(response);
         });
     }
-
+    // git ignore add for this function
     window.fbAsyncInit = function() {
         FB.init({
             appId: '177857089455600',
