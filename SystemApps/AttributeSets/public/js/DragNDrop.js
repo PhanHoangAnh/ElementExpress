@@ -2,8 +2,8 @@ var newId = 0;
 
 // Sortable function
 $(function () {
-    var creatAttributePad = document.querySelector('creatAttributePad');
-    var sortableDiv = creatAttributePad.querySelector('[component-role = "receivedPad"]');
+    var createAttributePad = document.querySelector('createAttributePad');
+    var sortableDiv = createAttributePad.querySelector('[component-role = "receivedPad"]');
     $(sortableDiv).sortable({
         // connectWith: ".connectedSortable",
         sort: function (e) {
@@ -107,10 +107,10 @@ $(function CreateControlsTemplate() {
 function createSingleControlGroup(template) {
     newId++;
     // --------------------------//
-    var creatAttributePad = document.querySelector('creatAttributePad');
+    var createAttributePad = document.querySelector('createAttributePad');
     // var sortableDiv = document.querySelector("#div2");
-    var receivedPad = creatAttributePad.querySelector('[component-role = "receivedPad"]');
-    var container_div = creatAttributePad.querySelector('[component-role="containerControl"]').content;
+    var receivedPad = createAttributePad.querySelector('[component-role = "receivedPad"]');
+    var container_div = createAttributePad.querySelector('[component-role="containerControl"]').content;
 
     var majorDiv = container_div.querySelector('[component-role="container_div"]');
     majorDiv.id = newId
@@ -330,7 +330,35 @@ function createSingleControlGroup(template) {
     container_div.appendChild(input_cover);
     //Test
     var container = template["container"];
-    document.getElementById(container).appendChild(container_div);
+    // console.log("templateData:", template);
+    if (template["container"]) {
+        document.getElementById(container).appendChild(container_div);
+    } else {
+        $(container_div).attr("data-toggle", "popover");
+        $(container_div).attr("data-placement", "right");
+        container_div.attribute = template["fields"];
+        container_div.controlType = template["Input Type"];
+
+        container_div["CUST"] = template["CUST"];
+        var popoverContent = createAttributePanel(container_div);
+        // 2. add CUST properties for container_div
+        // 2. Create popover
+        $(container_div).popover({
+            html: true,
+            trigger: 'click',
+            title: container_div.controlType,
+            content: function () {
+                $('[data-toggle=popover]').each(function () {
+                    // hide any open popovers when the anywhere else in the body is clicked                            
+                    if (this != $(container_div).get(0)) {
+                        $(this).popover('hide');
+                    }
+                });
+                // set custom attribute for popover content here                
+                return popoverContent;
+            }
+        });
+    }
 }
 
 function createAttributePanel(nodeCopy, title) {
@@ -338,19 +366,15 @@ function createAttributePanel(nodeCopy, title) {
     var controlType = nodeCopy.controlType;
     var fields = nodeCopy.attribute;
     var main_panel = document.createElement('main_panel');
-    main_panel.classList.add("col-md-12");
-    main_panel.classList.add("col-lg-12");
-    main_panel.classList.add("clearfix");
+    main_panel.classList.add("col-md-12", "col-lg-12", "clearfix");
     for (var item in fields) {
         var label = document.createElement("LABEL");
-        label.classList.add("col-lg-12");
-        label.classList.add("col-md-12");
+        label.classList.add("col-lg-12", "col-md-12");
         main_panel.appendChild(label);
         if (item != "options" && item != "min" && item != "max" && item != "ImageOptions") {
             label.innerHTML = fields[item]["label"];
             var input = document.createElement("input");
-            input.classList.add("col-md-12");
-            input.classList.add("col-lg-12");
+            input.classList.add("col-md-12", "col-lg-12");
             input.type = fields[item]["Input Type"];
             input.placeholder = fields[item]["value"];
 
@@ -623,8 +647,8 @@ var compObj = {}
 
 function saveElement() {
     // update entire sortable
-    var creatAttributePad = document.querySelector('creatAttributePad');
-    var sortableDiv = creatAttributePad.querySelector('[component-role = "receivedPad"]');
+    var createAttributePad = document.querySelector('createAttributePad');
+    var sortableDiv = createAttributePad.querySelector('[component-role = "receivedPad"]');
     var elementLists = sortableDiv.querySelectorAll("[id]");
     var printedList = [];
     for (var elem in elementLists) {
@@ -641,16 +665,16 @@ function saveElement() {
 
 function loadOptionSets(optSet) {
     //1. Load option Sets Name
-    var setsName = document.getElementById("SetsName").querySelector('[data-controltype="label"]');
-    compObj.setName = setsName.innerHTML = optSet.setName;
-    compObj.objId = optSet._id;
+    // var setsName = document.getElementById("SetsName").querySelector('[data-controltype="label"]');
+    // compObj.setName = setsName.innerHTML = optSet.setName;
+    // compObj.objId = optSet._id;
     //2. Rendering component and its attributes
     // clear div2 before add new element
 
-     var creatAttributePad = document.querySelector('creatAttributePad');
-    // var sortableDiv = document.querySelector("#div2");
-    var airField = creatAttributePad.querySelector('[component-role = "receivedPad"]');
-    
+    var createAttributePad = document.querySelector('createAttributePad');
+    // var sortableDiv = document.querySelector("#div2");    
+    var airField = createAttributePad.querySelector('[component-role = "receivedPad"]');
+
     while (airField.firstChild) {
         airField.removeChild(airField.firstChild);
     }
@@ -741,7 +765,11 @@ var htmlJSON = {
     ]
 }
 
-loadOptionSets(htmlJSON);
+//loadOptionSets(htmlJSON);
+document.onreadystatechange = function () {
+    console.log("document ready");
+    loadOptionSets(htmlJSON);
+};
 
 // Testing loadOptionSets function
 
