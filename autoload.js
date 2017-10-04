@@ -14,5 +14,16 @@ global['checkAuth'] = function (req, res, next) {
     next()
 };
 
+global["writeBase64ImageSync"] = function (fileName, imgData) {
+    try {
+        var data = imgData.replace(/^data:image\/\w+;base64,/, '');
+        fs.writeFileSync(fileName, data, 'base64');
+        return true;
+    } catch (err) {
+        console.log("err: ", err);
+        return false;
+    }
+}
+
 // Mapping independent Applications
 global["appManager"] = require("./SystemApps/AppManager/routes/index");
