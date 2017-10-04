@@ -14,7 +14,7 @@ fbHandler = function(fn_cb, loginBnt) {
     // git ignore add for this function
     window.fbAsyncInit = function() {
         FB.init({// chang some here
-            appId: '203172309854130',
+            appId: '177857089455600',
             cookie: true, // enable cookies to allow the server to access 
             // the session
             xfbml: false, // parse social plugins on this page
