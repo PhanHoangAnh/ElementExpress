@@ -35,21 +35,7 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.get('/', function (req, res, next) {    
-    res.render('index', {
-        title: 'Create OptionSets',
-        head: AppConfig.head,
-        header: AppConfig.header,
-        body: AppConfig.mainBody,
-        background: AppConfig.background,
-        footer:AppConfig.footer,
-        scripts: AppConfig.scripts,
-        RSApublicKey: keyPair.public,
-        data: setting,
-        navbar: AppConfig.navbar,
-      });
-  });
-  
+ 
   var objResult = {};
   objResult.status = 0
   objResult.err = null;
@@ -197,16 +183,16 @@ router.get('/', function (req, res, next) {
   });
   
   
-  function writeBase64ImageSync(fileName, imgData) {
-      try {
-          var data = imgData.replace(/^data:image\/\w+;base64,/, '');
-          fs.writeFileSync(fileName, data, 'base64');
-          return true;
-      } catch (err) {
-          console.log("err: ", err);
-          return false;
-      }
-  }
+//   function writeBase64ImageSync(fileName, imgData) {
+//       try {
+//           var data = imgData.replace(/^data:image\/\w+;base64,/, '');
+//           fs.writeFileSync(fileName, data, 'base64');
+//           return true;
+//       } catch (err) {
+//           console.log("err: ", err);
+//           return false;
+//       }
+//   }
 
 app.use(router);
 module.exports = app;

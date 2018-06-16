@@ -14,11 +14,11 @@ fbHandler = function(fn_cb, loginBnt) {
     // git ignore add for this function
     window.fbAsyncInit = function() {
         FB.init({// chang some here
-            appId: '177857089455600',
+            appId: '203172309854130',
             cookie: true, // enable cookies to allow the server to access 
             // the session
             xfbml: false, // parse social plugins on this page
-            version: 'v2.4' // use version 2.2
+            version: 'v2.12' // use version 2.2
         });
 
         FB.getLoginStatus(function(response) {
@@ -40,8 +40,18 @@ fbHandler = function(fn_cb, loginBnt) {
 
         // console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', 'GET', {
-            "fields": "id,name,email"
+            "fields": "id,name,email,picture"
         }, function(response) {
+            console.log('response: ', response);
+            // FB.api(
+            //     '/me/picture',
+            //     'GET',
+            //     {"type":"large"},
+            //     function(response) {
+            //         // Insert your code here
+            //         console.log("first Res:", response)
+            //     }
+            //   );
             callback(response);
         });
 
@@ -51,16 +61,25 @@ fbHandler = function(fn_cb, loginBnt) {
         // document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
         var _name = response.name;
         // parent.removeChild(visitorHolder);
-        FB.api('/me/picture?type=large', function(response) {
-            // document.getElementById("profileImage").setAttribute("src", response.data.url);
-            // console.log(response.data.url);
-            self.fbId = uid;
-            self.accessToken = accessToken;
-            self.avatar = response.data.url;
-            self.fbName = _name;
-            setfbObject();
-            fn_cb(FbObj);
-        });
+
+        self.fbId = uid;
+        self.accessToken = accessToken;
+        self.avatar = response.picture.data.url; 
+        self.fbName = _name;
+        setfbObject();
+        fn_cb(FbObj);
+
+        // FB.api('/me/picture?type=large', function(res) {
+        //     // document.getElementById("profileImage").setAttribute("src", response.data.url);
+        //     // console.log("get picture:", res);
+        //     // self.fbId = uid;
+        //     // self.accessToken = accessToken;
+        //     // self.avatar = res.data.url; 
+        //     // self.fbName = _name;
+        //     // setfbObject();
+        //     // fn_cb(FbObj);
+        // });
+        // FB.api("")
     }
 
     var isLoggedIn = false;
